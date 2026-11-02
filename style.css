@@ -1,0 +1,16 @@
+/*
+Theme Name: Narayanganj Press
+Theme URI: https://narayanganjpress.com/
+Author: Narayanganj Press
+Description: Lightweight, fast classic theme for the Bangla news site Narayanganj Press. Self-hosted SolaimanLipi, no jQuery, no page builder, comments disabled, Bangla digits and Bangla calendar dates.
+Version: 1.0.0
+Requires at least: 6.3
+Tested up to: 6.8
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: narayanganj-press
+Tags: news, blog, two-columns, right-sidebar, custom-menu, custom-logo, featured-images, translation-ready, rtl-language-support
+*/
+
+/* The real stylesheet is assets/css/main.css (inlined in <head> for speed, see inc/performance.php). */
