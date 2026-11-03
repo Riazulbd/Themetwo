@@ -100,8 +100,14 @@ button,input{font:inherit;color:inherit}
 .ticker{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--pill);padding:6px 16px 6px 6px;overflow:hidden}
 .ticker-badge{display:inline-flex;align-items:center;gap:6px;flex:none;background:var(--brand);color:#fff;font-size:13px;line-height:1.4;padding:6px 14px 6px 12px;border-radius:var(--pill)}
 .ticker-badge .dot{width:8px;height:8px;border-radius:50%;background:#fff}
-.ticker-list{display:flex;align-items:center;gap:12px;white-space:nowrap;overflow:hidden;font-size:13px;line-height:1.4;min-width:0}
-.ticker-list li+li::before{content:"•";color:var(--brand);margin-right:12px;-webkit-text-stroke:var(--stroke) currentColor}
+.ticker-view{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.ticker-track{display:flex;width:max-content;animation:np-ticker var(--np-ticker,30s) linear infinite}
+.ticker:hover .ticker-track,.ticker:focus-within .ticker-track{animation-play-state:paused}
+.ticker-list{display:flex;align-items:center;flex:none;min-width:100vw;white-space:nowrap;font-size:13px;line-height:1.4}
+.ticker-list li::before{content:"•";color:var(--brand);margin:0 12px;-webkit-text-stroke:var(--stroke) currentColor}
+@keyframes np-ticker{to{transform:translateX(-50%)}}
+[dir=rtl] .ticker-track{animation-direction:reverse}
+@media (prefers-reduced-motion:reduce){.ticker-track{animation:none;width:auto;overflow-x:auto}.ticker-list[aria-hidden]{display:none}}
 .ticker-list a:hover{color:var(--brand)}
 .msearch .search-form{padding-block:2px}
 .drawer{background:var(--surface);border-bottom:1px solid var(--border)}
