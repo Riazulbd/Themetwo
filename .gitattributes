@@ -1,0 +1,4 @@
+bin/ export-ignore
+.githooks/ export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
