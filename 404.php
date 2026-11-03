@@ -18,7 +18,7 @@ get_header();
 		<a class="btn btn-live b" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Back to home', 'khobor-press' ); ?></a>
 	</section>
 	<?php
-	$np_latest = get_posts( array( 'posts_per_page' => 4, 'ignore_sticky_posts' => true, 'no_found_rows' => true ) );
+	$np_latest = np_prime_thumbs( get_posts( array( 'posts_per_page' => 4, 'ignore_sticky_posts' => true, 'no_found_rows' => true ) ) );
 	if ( $np_latest ) :
 		?>
 		<section class="related" aria-labelledby="nf-h">

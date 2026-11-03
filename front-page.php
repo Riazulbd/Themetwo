@@ -91,7 +91,7 @@ $np_local_list = $np_local ? $np_sec_posts( $np_loc_s, 4 ) : array();
 		<section class="local" aria-labelledby="local-h">
 			<?php np_section_head( $np_loc_s['title'], get_category_link( $np_local ), __( 'All news →', 'khobor-press' ), 'local-h' ); ?>
 			<?php
-			$np_kids = get_categories( array( 'parent' => $np_local->term_id, 'hide_empty' => false, 'orderby' => 'term_id' ) );
+			$np_kids = get_categories( array( 'parent' => $np_local->term_id, 'hide_empty' => false, 'orderby' => 'term_id', 'number' => 12 ) );
 			if ( $np_kids ) :
 				?>
 				<ul class="pills pills-sm" aria-label="<?php esc_attr_e( 'Sub-categories', 'khobor-press' ); ?>">
@@ -155,7 +155,7 @@ $np_local_list = $np_local ? $np_sec_posts( $np_loc_s, 4 ) : array();
 <?php
 $np_vid_s = np_home_section( 'video' );
 $np_vcat  = $np_vid_s['hidden'] ? null : $np_vid_s['cat'];
-$np_vids  = $np_vcat ? get_posts( array( 'posts_per_page' => 4, 'cat' => $np_vcat->term_id, 'ignore_sticky_posts' => true, 'no_found_rows' => true ) ) : array();
+$np_vids  = $np_vcat ? np_prime_thumbs( get_posts( array( 'posts_per_page' => 4, 'cat' => $np_vcat->term_id, 'ignore_sticky_posts' => true, 'no_found_rows' => true, 'update_post_term_cache' => false ) ) ) : array();
 if ( $np_vids ) :
 	$np_v = array_shift( $np_vids );
 	?>

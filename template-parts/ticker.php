@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 
 $np_count = max( 1, (int) np_opt( 'ticker_count' ) );
 $np_label = np_opt( 'ticker_label' );
-$np_args  = array( 'posts_per_page' => $np_count, 'ignore_sticky_posts' => true, 'no_found_rows' => true );
+$np_args  = array( 'posts_per_page' => $np_count, 'ignore_sticky_posts' => true, 'no_found_rows' => true, 'update_post_term_cache' => false, 'update_post_meta_cache' => false ); // Titles and links only.
 $np_tag   = get_term_by( 'slug', apply_filters( 'np_breaking_tag', np_opt( 'ticker_tag' ) ), 'post_tag' );
 if ( $np_tag && $np_tag->count ) {
 	$np_args['tag_id'] = $np_tag->term_id;

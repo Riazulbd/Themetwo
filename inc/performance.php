@@ -46,13 +46,15 @@ function np_lcp_image() {
 	if ( false !== $img ) {
 		return $img;
 	}
-	$img = null;
-	$id  = 0;
+	$img   = null;
+	$id    = 0;
+	$sizes = '(max-width: 820px) calc(100vw - 32px), 760px'; // Must equal the sizes printed on the <img> itself (single.php).
 	if ( is_singular() && has_post_thumbnail() ) {
 		$id = get_post_thumbnail_id();
 	} elseif ( is_front_page() ) {
-		$lead = np_front_lead_post();
-		$id   = ( $lead && has_post_thumbnail( $lead ) ) ? get_post_thumbnail_id( $lead ) : 0;
+		$lead  = np_front_lead_post();
+		$id    = ( $lead && has_post_thumbnail( $lead ) ) ? get_post_thumbnail_id( $lead ) : 0;
+		$sizes = '(max-width: 820px) calc(100vw - 32px), 744px'; // Must equal the sizes in front-page.php.
 	}
 	if ( $id ) {
 		$src = wp_get_attachment_image_src( $id, 'np-lead' );
@@ -61,7 +63,7 @@ function np_lcp_image() {
 			$img    = array(
 				'src'    => $src[0],
 				'srcset' => $srcset ? $srcset : '',
-				'sizes'  => '(max-width: 820px) calc(100vw - 32px), 760px',
+				'sizes'  => $sizes,
 			);
 		}
 	}
@@ -206,12 +208,19 @@ function np_scripts() {
 		'failed' => __( 'Copy failed', 'khobor-press' ),
 	);
 	if ( is_singular( 'post' ) && np_views_enabled() ) {
-		$data['view'] = esc_url_raw( rest_url( 'np/v1/view' ) );
-		$data['id']   = get_queried_object_id();
+		$data['view']   = esc_url_raw( add_query_arg( 'np_view', '1', home_url( '/' ) ) ); // Answered early, see inc/views.php.
+		$data['id']     = get_queried_object_id();
+		$data['sample'] = max( 1, (int) np_opt( 'views_sample' ) );
 	}
 	wp_add_inline_script( 'np-main', 'window.NP=' . wp_json_encode( $data ) . ';', 'before' );
 }
 add_action( 'wp_enqueue_scripts', 'np_scripts' );
+
+/**
+ * Load core block CSS per block (only for blocks actually on the page) instead of one big
+ * stylesheet for everything.
+ */
+add_filter( 'should_load_separate_core_block_assets', '__return_true' );
 
 /** Head cleanup. */
 function np_cleanup() {

@@ -40,6 +40,8 @@ The page follows the time of day by default (dark from 18:00, light from 06:00, 
 - **Early Hints:** the theme sends `Link: rel=preload` headers for the font and the main image. Turn on Cloudflare → Speed → Optimization → **Early Hints** and the browser starts those downloads before WordPress has finished building the page.
 - **Edge caching:** logged-out pages are sent with `s-maxage` (Theme Panel → Sharing & ads, default 300 s). To use it, add a Cloudflare Cache Rule that caches HTML ("Eligible for cache", respect origin TTL), and bypass the cache for cookies starting `wordpress_logged_in` and for `/wp-admin`.
 - **Instant clicks:** Chromium browsers prerender the next article when a link is hovered or pressed (Speculation Rules). Views are only counted once the page is actually shown.
+- **View counter:** the beacon is answered right after the theme loads, before WordPress builds the page, and uses atomic increments. On a very busy site set Theme Panel → Sharing & ads → "Count 1 in every N views" to 5 or 10.
+- **Fewer queries:** featured images are loaded in one query per list, title-only lists skip term and meta loading, and the "Most read" list refreshes without a stampede (stale-while-revalidate).
 - Serve images through Cloudflare Polish / WebP or AVIF for the smallest files.
 
 ## Language

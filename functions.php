@@ -10,12 +10,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NP_VERSION', '1.1.0' );
+define( 'NP_VERSION', '1.1.1' );
 define( 'NP_DIR', get_template_directory() );
 define( 'NP_URI', get_template_directory_uri() );
 
 $np_includes = array(
 	'options',         // Theme Panel schema, defaults, reading and sanitising options.
+	'cache',           // Stale-while-revalidate helper for transients.
 	'bangla',          // Dates, digits and relative time (Bangla or the site's own format).
 	'setup',           // Theme supports, menus, image sizes, widget areas.
 	'disable-comments',// Comments and pings off everywhere.

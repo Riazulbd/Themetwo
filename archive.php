@@ -30,7 +30,7 @@ $np_term = get_queried_object();
 		<?php
 		if ( is_category() ) :
 			$np_parent = $np_term->parent ? $np_term->parent : $np_term->term_id;
-			$np_kids   = get_categories( array( 'parent' => $np_parent, 'hide_empty' => false, 'orderby' => 'term_id' ) );
+			$np_kids   = get_categories( array( 'parent' => $np_parent, 'hide_empty' => false, 'orderby' => 'term_id', 'number' => 12 ) );
 			if ( $np_kids ) :
 				?>
 				<ul class="pills pills-sm">

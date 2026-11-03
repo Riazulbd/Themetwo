@@ -95,13 +95,13 @@ while ( have_posts() ) :
 	<?php
 	$np_rel_cat = np_post_cat();
 	$np_top_cat = np_post_top_cat();
-	$np_related = $np_rel_cat ? get_posts( array(
+	$np_related = $np_rel_cat ? np_prime_thumbs( get_posts( array(
 		'posts_per_page'      => 4,
 		'post__not_in'        => array( get_the_ID() ),
 		'category__in'        => array_filter( array( $np_rel_cat->term_id, $np_top_cat ? $np_top_cat->term_id : 0 ) ),
 		'ignore_sticky_posts' => true,
 		'no_found_rows'       => true,
-	) ) : array();
+	) ) ) : array();
 	if ( $np_related ) :
 		$np_more = $np_top_cat ? get_category_link( $np_top_cat ) : '';
 		?>

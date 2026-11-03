@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Khobor Press 1.1.0\n"
+"Project-Id-Version: Khobor Press 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-03 14:46+0600\n"
+"POT-Creation-Date: 2026-11-03 15:25+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,7 +84,7 @@ msgstr ""
 msgid "Top story"
 msgstr ""
 
-#: front-page.php:80 front-page.php:92 inc/template-tags.php:242
+#: front-page.php:80 front-page.php:92 inc/template-tags.php:263
 msgid "All news →"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Sub-categories"
 msgstr ""
 
-#: front-page.php:139 single.php:108
+#: front-page.php:139 single.php:109
 msgid "More →"
 msgstr ""
 
@@ -112,7 +112,7 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: header.php:71
+#: header.php:72
 msgid "All categories"
 msgstr ""
 
@@ -192,530 +192,548 @@ msgstr ""
 msgid "Dark mode"
 msgstr ""
 
-#: inc/options.php:43
+#: inc/options.php:47
 msgid "Latest (list beside the lead story)"
 msgstr ""
 
-#: inc/options.php:43 inc/template-tags.php:473
+#: inc/options.php:47 inc/template-tags.php:497
 msgid "Latest"
 msgstr ""
 
-#: inc/options.php:44
+#: inc/options.php:48
 msgid "Top stories (4-card grid)"
 msgstr ""
 
-#: inc/options.php:44
+#: inc/options.php:48
 msgid "Top stories"
 msgstr ""
 
-#: inc/options.php:45
+#: inc/options.php:49
 msgid "Featured section (its sub-categories become pills)"
 msgstr ""
 
-#: inc/options.php:46
+#: inc/options.php:50
 msgid "Most read card"
 msgstr ""
 
-#: inc/options.php:46
+#: inc/options.php:50
 msgid "Most read"
 msgstr ""
 
-#: inc/options.php:47
+#: inc/options.php:51
 msgid "Column 1"
 msgstr ""
 
-#: inc/options.php:48
+#: inc/options.php:52
 msgid "Column 2"
 msgstr ""
 
-#: inc/options.php:49
+#: inc/options.php:53
 msgid "Column 3"
 msgstr ""
 
-#: inc/options.php:50
+#: inc/options.php:54
 msgid "Video band"
 msgstr ""
 
-#: inc/options.php:61
+#: inc/options.php:66
 msgid "Accent colour (buttons, badges, links)"
 msgstr ""
 
-#: inc/options.php:62
+#: inc/options.php:67
 msgid "Dark colour (most-read card, quotes)"
 msgstr ""
 
-#: inc/options.php:63
+#: inc/options.php:68
 msgid "Top bar background"
 msgstr ""
 
-#: inc/options.php:64
+#: inc/options.php:69
 msgid "Top bar text"
 msgstr ""
 
-#: inc/options.php:65
+#: inc/options.php:70
 msgid "Footer background"
 msgstr ""
 
-#: inc/options.php:66
+#: inc/options.php:71
 msgid "Footer text"
 msgstr ""
 
-#: inc/options.php:77
+#: inc/options.php:82
 msgid "Header background (light mode)"
 msgstr ""
 
-#: inc/options.php:78
+#: inc/options.php:83
 msgid "Header text and wordmark (light mode)"
 msgstr ""
 
-#: inc/options.php:79
+#: inc/options.php:84
 msgid "Header background (dark mode)"
 msgstr ""
 
-#: inc/options.php:80
+#: inc/options.php:85
 msgid "Header text and wordmark (dark mode)"
 msgstr ""
 
-#: inc/options.php:96
+#: inc/options.php:101
 msgid "Branding"
 msgstr ""
 
-#: inc/options.php:96
+#: inc/options.php:101
 msgid ""
 "The category pills under the header come from the menu assigned to "
 "\"Category navigation (pills)\" under Appearance → Menus."
 msgstr ""
 
-#: inc/options.php:97
+#: inc/options.php:102
 msgid "Header logo"
 msgstr ""
 
-#: inc/options.php:97
+#: inc/options.php:102
 msgid ""
 "Blank = the logo from Site Identity, then the site name as a wordmark. "
 "Recommended: transparent PNG/WebP, about 320×80."
 msgstr ""
 
-#: inc/options.php:98
+#: inc/options.php:103
 msgid "Footer logo"
 msgstr ""
 
-#: inc/options.php:98
+#: inc/options.php:103
 msgid ""
 "Shown on the footer background, so use a version that suits it. Blank = "
 "wordmark."
 msgstr ""
 
-#: inc/options.php:99
+#: inc/options.php:104
 msgid "Logo tagline"
 msgstr ""
 
-#: inc/options.php:99
+#: inc/options.php:104
 msgid "Short line shown under the header wordmark. Blank = none."
 msgstr ""
 
-#: inc/options.php:100
+#: inc/options.php:105
 msgid "Language & dates"
 msgstr ""
 
-#: inc/options.php:103
+#: inc/options.php:108
 msgid "Site interface language"
 msgstr ""
 
-#: inc/options.php:106
+#: inc/options.php:111
 msgid "Bengali (all theme text shown in Bengali)"
 msgstr ""
 
-#: inc/options.php:107
+#: inc/options.php:112
 msgid "Follow the site language (Settings → General)"
 msgstr ""
 
-#: inc/options.php:109
+#: inc/options.php:114
 msgid ""
 "Controls the text built into the theme, such as buttons, labels and dates."
 msgstr ""
 
-#: inc/options.php:113
+#: inc/options.php:118
 msgid "Bangla digits, dates & calendar"
 msgstr ""
 
-#: inc/options.php:116
+#: inc/options.php:121
 msgid "Automatic (when the site language is Bangla)"
 msgstr ""
 
-#: inc/options.php:117
+#: inc/options.php:122
 msgid "Always on"
 msgstr ""
 
-#: inc/options.php:118
+#: inc/options.php:123
 msgid "Always off (use the WordPress date and time format)"
 msgstr ""
 
-#: inc/options.php:121
+#: inc/options.php:126
 msgid "Top bar"
 msgstr ""
 
-#: inc/options.php:121
+#: inc/options.php:126
 msgid "Show the top bar with today's date"
 msgstr ""
 
-#: inc/options.php:122
+#: inc/options.php:127
 msgid "Bangla calendar date"
 msgstr ""
 
-#: inc/options.php:122
+#: inc/options.php:127
 msgid ""
 "Also show the Bangla calendar date in the top bar (only when Bangla dates "
 "are on)"
 msgstr ""
 
-#: inc/options.php:123
+#: inc/options.php:128
 msgid "Light & dark mode"
 msgstr ""
 
-#: inc/options.php:123
+#: inc/options.php:128
 msgid ""
 "Visitors can always switch with the button in the header; their choice is "
 "remembered on their device."
 msgstr ""
 
-#: inc/options.php:126
+#: inc/options.php:131
 msgid "Default mode"
 msgstr ""
 
-#: inc/options.php:129
+#: inc/options.php:134
 msgid "Automatic by time of day (visitor's local time)"
 msgstr ""
 
-#: inc/options.php:130
+#: inc/options.php:135
 msgid "Follow the visitor's device setting"
 msgstr ""
 
-#: inc/options.php:131
+#: inc/options.php:136
 msgid "Always light"
 msgstr ""
 
-#: inc/options.php:132
+#: inc/options.php:137
 msgid "Always dark"
 msgstr ""
 
-#: inc/options.php:135
+#: inc/options.php:140
 msgid "Dark mode starts at (hour, 0–23)"
 msgstr ""
 
-#: inc/options.php:135
+#: inc/options.php:140
 msgid "Used by \"Automatic by time of day\"."
 msgstr ""
 
-#: inc/options.php:136
+#: inc/options.php:141
 msgid "Light mode starts at (hour, 0–23)"
 msgstr ""
 
-#: inc/options.php:137
+#: inc/options.php:142
 msgid "Switch button"
 msgstr ""
 
-#: inc/options.php:137
+#: inc/options.php:142
 msgid "Show the light/dark switch in the header"
 msgstr ""
 
-#: inc/options.php:138
+#: inc/options.php:143
 msgid "Typography"
 msgstr ""
 
-#: inc/options.php:141
+#: inc/options.php:146
 msgid "Font"
 msgstr ""
 
-#: inc/options.php:144
+#: inc/options.php:149
 msgid ""
 "Automatic (bundled Bangla font when Bangla dates are on, otherwise the "
 "system font)"
 msgstr ""
 
-#: inc/options.php:145
+#: inc/options.php:150
 msgid "Bundled Bangla font (SolaimanLipi)"
 msgstr ""
 
-#: inc/options.php:146
+#: inc/options.php:151
 msgid "System font (fastest, nothing to download)"
 msgstr ""
 
-#: inc/options.php:153
+#: inc/options.php:158
 msgid "Header"
 msgstr ""
 
-#: inc/options.php:153
+#: inc/options.php:158
 msgid ""
 "Pick a header colour that matches your logo, for example when the logo has a "
 "solid background instead of a transparent one. Leave blank for the default "
 "look."
 msgstr ""
 
-#: inc/options.php:158
+#: inc/options.php:163
 msgid "Site colours"
 msgstr ""
 
-#: inc/options.php:165
+#: inc/options.php:170
 msgid "About & imprint"
 msgstr ""
 
-#: inc/options.php:166
+#: inc/options.php:171
 msgid "Footer description"
 msgstr ""
 
-#: inc/options.php:167
+#: inc/options.php:172
 msgid "Copyright holder"
 msgstr ""
 
-#: inc/options.php:167
+#: inc/options.php:172
 msgid "Blank = the site name."
 msgstr ""
 
-#: inc/options.php:168
+#: inc/options.php:173
 msgid "Editor label"
 msgstr ""
 
-#: inc/options.php:168
+#: inc/options.php:173
 msgid "Editor & Publisher"
 msgstr ""
 
-#: inc/options.php:168
+#: inc/options.php:173
 msgid "Shown before the editor name, e.g. \"Editor in chief\"."
 msgstr ""
 
-#: inc/options.php:169
+#: inc/options.php:174
 msgid "Editor name"
 msgstr ""
 
-#: inc/options.php:169
+#: inc/options.php:174
 msgid "Blank hides the editor line."
 msgstr ""
 
-#: inc/options.php:170
+#: inc/options.php:175
 msgid "Published-from line"
 msgstr ""
 
-#: inc/options.php:171
+#: inc/options.php:176
 msgid "Office address"
 msgstr ""
 
-#: inc/options.php:174
+#: inc/options.php:179
 msgid "Newsroom"
 msgstr ""
 
-#: inc/options.php:175 inc/options.php:239
+#: inc/options.php:180 inc/options.php:246
 msgid "Advertising"
 msgstr ""
 
-#: inc/options.php:176
+#: inc/options.php:181
 msgid "General enquiries"
 msgstr ""
 
 #. translators: %s: contact block name.
-#: inc/options.php:180
+#: inc/options.php:185
 #, php-format
 msgid "Contact block: %s"
 msgstr ""
 
-#: inc/options.php:181
+#: inc/options.php:186
 msgid "Heading"
 msgstr ""
 
-#: inc/options.php:182
+#: inc/options.php:187
 msgid "Phone"
 msgstr ""
 
-#: inc/options.php:183
+#: inc/options.php:188
 msgid "Email"
 msgstr ""
 
-#: inc/options.php:188
+#: inc/options.php:193
 msgid "Social links"
 msgstr ""
 
-#: inc/options.php:188
+#: inc/options.php:193
 msgid ""
 "Switch a network on and add its link. Networks without a link are not shown."
 msgstr ""
 
-#: inc/options.php:194
+#: inc/options.php:199
 msgid "Show in the footer"
 msgstr ""
 
-#: inc/options.php:197
+#: inc/options.php:202
 msgid "Link"
 msgstr ""
 
-#: inc/options.php:202
+#: inc/options.php:207
 msgid "Breaking ticker"
 msgstr ""
 
-#: inc/options.php:203
+#: inc/options.php:208
 msgid "Ticker"
 msgstr ""
 
-#: inc/options.php:203
+#: inc/options.php:208
 msgid "Show the ticker under the header on the home page"
 msgstr ""
 
-#: inc/options.php:204
+#: inc/options.php:209
 msgid "Ticker label"
 msgstr ""
 
-#: inc/options.php:204
+#: inc/options.php:209
 msgid "Breaking"
 msgstr ""
 
-#: inc/options.php:205
+#: inc/options.php:210
 msgid "Number of headlines"
 msgstr ""
 
-#: inc/options.php:206
+#: inc/options.php:211
 msgid "Tag that feeds the ticker"
 msgstr ""
 
-#: inc/options.php:206
+#: inc/options.php:211
 msgid ""
 "Tag slug. Posts with this tag appear first; if no post has it, the newest "
 "headlines are used."
 msgstr ""
 
-#: inc/options.php:207
+#: inc/options.php:212
 msgid "Home page sections"
 msgstr ""
 
-#: inc/options.php:207
+#: inc/options.php:212
 msgid ""
 "Pick the category each section shows and the title printed on the site. A "
 "blank title uses the default title, or the category name."
 msgstr ""
 
 #. translators: %s: section name.
-#: inc/options.php:214
+#: inc/options.php:219
 #, php-format
 msgid "%s: category"
 msgstr ""
 
 #. translators: %s: section name.
-#: inc/options.php:223
+#: inc/options.php:228
 #, php-format
 msgid "%s: title"
 msgstr ""
 
-#: inc/options.php:225
+#: inc/options.php:230
 msgid "Blank = category name"
 msgstr ""
 
-#: inc/options.php:231
+#: inc/options.php:236
 msgid "Facebook Page box"
 msgstr ""
 
-#: inc/options.php:231
+#: inc/options.php:236
 msgid ""
 "Shown in the sidebar after the \"Most read\" card on posts and archives. It "
 "is a lazy-loaded iframe, so nothing from Facebook loads until the reader "
 "scrolls near it."
 msgstr ""
 
-#: inc/options.php:232
+#: inc/options.php:237
 msgid "Facebook Page URL"
 msgstr ""
 
-#: inc/options.php:232
+#: inc/options.php:237
 msgid "Blank hides the box."
 msgstr ""
 
-#: inc/options.php:233
+#: inc/options.php:238
 msgid "Box title"
 msgstr ""
 
-#: inc/options.php:233
+#: inc/options.php:238
 msgid "Follow us on Facebook"
 msgstr ""
 
-#: inc/options.php:234
+#: inc/options.php:239
 msgid "Sharing & newsletter"
 msgstr ""
 
-#: inc/options.php:235
+#: inc/options.php:240
 msgid "Facebook App ID"
 msgstr ""
 
-#: inc/options.php:235
+#: inc/options.php:240
 msgid "Optional. Enables the Messenger share button on desktop."
 msgstr ""
 
-#: inc/options.php:236
+#: inc/options.php:241
 msgid "Newsletter form action URL"
 msgstr ""
 
-#: inc/options.php:236
+#: inc/options.php:241
 msgid ""
 "The form posts an \"EMAIL\" field to this address (Mailchimp, MailerLite and "
 "similar). Blank hides the form."
 msgstr ""
 
-#: inc/options.php:237
+#: inc/options.php:242
 msgid "Speed & caching"
 msgstr ""
 
-#: inc/options.php:238
+#: inc/options.php:243
 msgid "Edge cache time (seconds)"
 msgstr ""
 
-#: inc/options.php:238
+#: inc/options.php:243
 msgid ""
 "Tells Cloudflare (and other CDNs set to cache HTML) how long it may keep a "
 "page for logged-out visitors. 0 turns it off. Logged-in users, previews, "
 "search and 404 pages are never cached."
 msgstr ""
 
-#: inc/options.php:239
-msgid "Ad slots are widget areas: Appearance → Widgets."
-msgstr ""
-
-#: inc/options.php:240
-msgid "Reserved space"
-msgstr ""
-
-#: inc/options.php:240
-msgid "Show a reserved ad box when an ad widget area is empty"
+#: inc/options.php:244
+msgid "View counter"
 msgstr ""
 
 #: inc/options.php:244
-msgid "General"
+msgid "Count article views (feeds the \"Most read\" card)"
 msgstr ""
 
 #: inc/options.php:245
-msgid "Colours"
+msgid "Count 1 in every N views"
+msgstr ""
+
+#: inc/options.php:245
+msgid ""
+"1 counts every view. On a very busy site, 5 or 10 cuts the server work by "
+"that factor while keeping the totals accurate on average."
 msgstr ""
 
 #: inc/options.php:246
-msgid "Footer & contact"
+msgid "Ad slots are widget areas: Appearance → Widgets."
 msgstr ""
 
 #: inc/options.php:247
+msgid "Reserved space"
+msgstr ""
+
+#: inc/options.php:247
+msgid "Show a reserved ad box when an ad widget area is empty"
+msgstr ""
+
+#: inc/options.php:251
+msgid "General"
+msgstr ""
+
+#: inc/options.php:252
+msgid "Colours"
+msgstr ""
+
+#: inc/options.php:253
+msgid "Footer & contact"
+msgstr ""
+
+#: inc/options.php:254
 msgid "Social"
 msgstr ""
 
-#: inc/options.php:248
+#: inc/options.php:255
 msgid "Home page"
 msgstr ""
 
-#: inc/options.php:249
+#: inc/options.php:256
 msgid "Sharing & ads"
 msgstr ""
 
-#: inc/options.php:636
+#: inc/options.php:662
 msgid "Theme options were reset to their defaults."
 msgstr ""
 
-#: inc/performance.php:205
+#: inc/performance.php:207
 msgid "Link copied"
 msgstr ""
 
-#: inc/performance.php:206
+#: inc/performance.php:208
 msgid "Copy failed"
 msgstr ""
 
@@ -771,93 +789,93 @@ msgstr ""
 msgid "Added below \"latest news\" in the article sidebar."
 msgstr ""
 
-#: inc/template-tags.php:170
+#: inc/template-tags.php:191
 msgid "Image"
 msgstr ""
 
-#: inc/template-tags.php:265
+#: inc/template-tags.php:286
 msgid "Published:"
 msgstr ""
 
-#: inc/template-tags.php:268
+#: inc/template-tags.php:289
 msgid "Updated:"
 msgstr ""
 
 #. translators: %s: minutes.
-#: inc/template-tags.php:273
+#: inc/template-tags.php:294
 #, php-format
 msgid "%s min read"
 msgstr ""
 
-#: inc/template-tags.php:295
+#: inc/template-tags.php:316
 msgid "Facebook"
 msgstr ""
 
-#: inc/template-tags.php:295
+#: inc/template-tags.php:316
 msgid "Share on Facebook"
 msgstr ""
 
-#: inc/template-tags.php:296
+#: inc/template-tags.php:317
 msgid "WhatsApp"
 msgstr ""
 
-#: inc/template-tags.php:296
+#: inc/template-tags.php:317
 msgid "Share on WhatsApp"
 msgstr ""
 
-#: inc/template-tags.php:297
+#: inc/template-tags.php:318
 msgid "Messenger"
 msgstr ""
 
-#: inc/template-tags.php:297
+#: inc/template-tags.php:318
 msgid "Share on Messenger"
 msgstr ""
 
-#: inc/template-tags.php:300
+#: inc/template-tags.php:321
 msgid "Share:"
 msgstr ""
 
-#: inc/template-tags.php:315
+#: inc/template-tags.php:336
 msgid "Copy the link"
 msgstr ""
 
-#: inc/template-tags.php:317
+#: inc/template-tags.php:338
 msgid "Copy link"
 msgstr ""
 
-#: inc/template-tags.php:331
+#: inc/template-tags.php:352
 msgid "Breadcrumb"
 msgstr ""
 
-#: inc/template-tags.php:353 inc/template-tags.php:530
+#: inc/template-tags.php:374 inc/template-tags.php:554
 msgid "Home"
 msgstr ""
 
-#: inc/template-tags.php:372
+#: inc/template-tags.php:393
 msgid "Search results"
 msgstr ""
 
-#: inc/template-tags.php:374
+#: inc/template-tags.php:395
 msgid "Archive"
 msgstr ""
 
-#: inc/template-tags.php:396 inc/template-tags.php:400
+#: inc/template-tags.php:417 inc/template-tags.php:421
 msgid "Advertisement"
 msgstr ""
 
-#: inc/template-tags.php:449
+#: inc/template-tags.php:470
 msgid "Today"
 msgstr ""
 
 #. translators: %s: site name.
-#: inc/template-tags.php:516
+#: inc/template-tags.php:540
 #, php-format
 msgid "%s on Facebook"
 msgstr ""
 
 #. translators: %s: social network.
 #. translators: 1: site name, 2: social network.
-#: inc/template-tags.php:606
+#: inc/template-tags.php:630
 #, php-format
 msgid "%1$s on %2$s"
 msgstr ""
@@ -911,7 +929,7 @@ msgstr ""
 msgid "Next story"
 msgstr ""
 
-#: single.php:108
+#: single.php:109
 msgid "Related stories"
 msgstr ""
 

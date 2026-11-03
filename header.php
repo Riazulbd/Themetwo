@@ -68,13 +68,6 @@ defined( 'ABSPATH' ) || exit;
 </header>
 
 <div class="drawer" id="drawer" hidden>
-	<nav aria-label="<?php esc_attr_e( 'All categories', 'khobor-press' ); ?>">
-		<?php
-		if ( has_nav_menu( 'primary' ) ) {
-			wp_nav_menu( array( 'theme_location' => 'primary', 'container' => false, 'menu_class' => 'drawer-list', 'depth' => 1, 'fallback_cb' => false ) );
-		} else {
-			np_primary_fallback();
-		}
-		?>
-	</nav>
+	<?php // Filled from the header menu the first time it is opened (assets/js/main.js), so the menu is not printed twice. ?>
+	<nav aria-label="<?php esc_attr_e( 'All categories', 'khobor-press' ); ?>" data-clone=".catnav .pills"></nav>
 </div>

@@ -39,7 +39,11 @@ function np_social_networks() {
  * @return array<string,array{label:string,title:string,cat:?string,latest:bool}>
  */
 function np_home_sections() {
-	return apply_filters( 'np_home_sections', array(
+	static $sections = null;
+	if ( null !== $sections ) {
+		return $sections;
+	}
+	$sections = apply_filters( 'np_home_sections', array(
 		'side'  => array( 'label' => __( 'Latest (list beside the lead story)', 'khobor-press' ), 'title' => __( 'Latest', 'khobor-press' ), 'cat' => '', 'latest' => true ),
 		'top'   => array( 'label' => __( 'Top stories (4-card grid)', 'khobor-press' ), 'title' => __( 'Top stories', 'khobor-press' ), 'cat' => '', 'latest' => true ),
 		'local' => array( 'label' => __( 'Featured section (its sub-categories become pills)', 'khobor-press' ), 'title' => '', 'cat' => '', 'latest' => false ),
@@ -49,6 +53,7 @@ function np_home_sections() {
 		'col3'  => array( 'label' => __( 'Column 3', 'khobor-press' ), 'title' => '', 'cat' => '', 'latest' => false ),
 		'video' => array( 'label' => __( 'Video band', 'khobor-press' ), 'title' => '', 'cat' => '', 'latest' => false ),
 	) );
+	return $sections;
 }
 
 /**
@@ -236,6 +241,8 @@ function np_panel_tabs() {
 		'newsletter_action' => array( 'type' => 'url', 'label' => __( 'Newsletter form action URL', 'khobor-press' ), 'default' => '', 'desc' => __( 'The form posts an "EMAIL" field to this address (Mailchimp, MailerLite and similar). Blank hides the form.', 'khobor-press' ) ),
 		'h_speed'           => array( 'type' => 'heading', 'label' => __( 'Speed & caching', 'khobor-press' ) ),
 		'edge_ttl'          => array( 'type' => 'number', 'label' => __( 'Edge cache time (seconds)', 'khobor-press' ), 'default' => '300', 'min' => 0, 'max' => 86400, 'desc' => __( 'Tells Cloudflare (and other CDNs set to cache HTML) how long it may keep a page for logged-out visitors. 0 turns it off. Logged-in users, previews, search and 404 pages are never cached.', 'khobor-press' ) ),
+		'views_on'          => array( 'type' => 'checkbox', 'label' => __( 'View counter', 'khobor-press' ), 'text' => __( 'Count article views (feeds the "Most read" card)', 'khobor-press' ), 'default' => '1' ),
+		'views_sample'      => array( 'type' => 'number', 'label' => __( 'Count 1 in every N views', 'khobor-press' ), 'default' => '1', 'min' => 1, 'max' => 50, 'desc' => __( '1 counts every view. On a very busy site, 5 or 10 cuts the server work by that factor while keeping the totals accurate on average.', 'khobor-press' ) ),
 		'h_ads'             => array( 'type' => 'heading', 'label' => __( 'Advertising', 'khobor-press' ), 'desc' => __( 'Ad slots are widget areas: Appearance → Widgets.', 'khobor-press' ) ),
 		'ad_placeholders'   => array( 'type' => 'checkbox', 'label' => __( 'Reserved space', 'khobor-press' ), 'text' => __( 'Show a reserved ad box when an ad widget area is empty', 'khobor-press' ), 'default' => '' ),
 	);
@@ -273,9 +280,21 @@ function np_fields() {
  * @return array<string,string>
  */
 function np_defaults() {
-	$d = array();
-	foreach ( np_fields() as $key => $f ) {
-		$d[ $key ] = isset( $f['default'] ) ? (string) $f['default'] : '';
+	// The full panel schema is only needed in the admin. On the front end the defaults are kept in one
+	// small autoloaded option (rebuilt when the theme version or language changes), so no request pays
+	// for building ~150 translated field definitions.
+	$key  = NP_VERSION . '|' . determine_locale();
+	$memo = is_admin() ? null : get_option( 'np_defaults_cache', null );
+	if ( is_array( $memo ) && isset( $memo['k'], $memo['d'] ) && $memo['k'] === $key ) {
+		$d = $memo['d'];
+	} else {
+		$d = array();
+		foreach ( np_fields() as $k => $f ) {
+			$d[ $k ] = isset( $f['default'] ) ? (string) $f['default'] : '';
+		}
+		if ( ! is_admin() ) {
+			update_option( 'np_defaults_cache', array( 'k' => $key, 'd' => $d ), true );
+		}
 	}
 	return apply_filters( 'np_option_defaults', $d );
 }
@@ -418,66 +437,73 @@ function np_auto_sections() {
 	if ( null !== $map ) {
 		return $map;
 	}
-	$ids = get_transient( 'np_auto_cats' );
-	if ( ! is_array( $ids ) ) {
-		$ids  = array();
-		$cats = get_categories( array(
-			'hide_empty' => true,
-			'pad_counts' => true,
-			'orderby'    => 'count',
-			'order'      => 'DESC',
-			'exclude'    => array( (int) get_option( 'default_category' ) ),
-		) );
-		$kids = array();
-		$tops = array();
-		$vid  = 0;
-		foreach ( $cats as $c ) {
-			if ( $c->parent ) {
-				$kids[ $c->parent ] = true;
-			} else {
-				$tops[] = $c;
-			}
-			if ( ! $vid && ( preg_match( '/^videos?$/i', $c->slug ) || false !== mb_stripos( $c->name, 'video' ) || false !== mb_strpos( $c->name, 'ভিডিও' ) ) ) {
-				$vid = (int) $c->term_id;
-			}
-		}
-		$tops = array_values( array_filter( $tops, function ( $c ) use ( $vid ) {
-			return (int) $c->term_id !== $vid;
-		} ) );
-		$local = 0;
-		foreach ( $tops as $i => $c ) {
-			if ( isset( $kids[ $c->term_id ] ) ) {
-				$local = (int) $c->term_id;
-				unset( $tops[ $i ] );
-				break;
-			}
-		}
-		$tops = array_values( $tops );
-		if ( ! $local && $tops ) {
-			$local = (int) $tops[0]->term_id;
-			array_shift( $tops );
-		}
-		if ( $local ) {
-			$ids['local'] = $local;
-		}
-		foreach ( array( 'col1', 'col2', 'col3' ) as $i => $k ) {
-			if ( isset( $tops[ $i ] ) ) {
-				$ids[ $k ] = (int) $tops[ $i ]->term_id;
-			}
-		}
-		if ( $vid ) {
-			$ids['video'] = $vid;
-		}
-		set_transient( 'np_auto_cats', $ids, HOUR_IN_SECONDS );
-	}
+	$ids = np_swr( 'np_auto_cats', HOUR_IN_SECONDS, 'np_build_auto_sections' );
 	$map = array();
-	foreach ( $ids as $k => $id ) {
+	foreach ( (array) $ids as $k => $id ) {
 		$t = get_category( (int) $id );
 		if ( $t && ! is_wp_error( $t ) ) {
 			$map[ $k ] = $t;
 		}
 	}
 	return $map;
+}
+
+/**
+ * Work out which category each automatic section gets (see np_auto_sections()).
+ *
+ * @return array<string,int> section key => category ID.
+ */
+function np_build_auto_sections() {
+	$ids  = array();
+	$cats = get_categories( array(
+		'hide_empty' => true,
+		'pad_counts' => true,
+		'orderby'    => 'count',
+		'order'      => 'DESC',
+		'number'     => 60,
+		'exclude'    => array( (int) get_option( 'default_category' ) ),
+	) );
+	$kids = array();
+	$tops = array();
+	$vid  = 0;
+	foreach ( $cats as $c ) {
+		if ( $c->parent ) {
+			$kids[ $c->parent ] = true;
+		} else {
+			$tops[] = $c;
+		}
+		if ( ! $vid && ( preg_match( '/^videos?$/i', $c->slug ) || false !== mb_stripos( $c->name, 'video' ) || false !== mb_strpos( $c->name, 'ভিডিও' ) ) ) {
+			$vid = (int) $c->term_id;
+		}
+	}
+	$tops = array_values( array_filter( $tops, function ( $c ) use ( $vid ) {
+		return (int) $c->term_id !== $vid;
+	} ) );
+	$local = 0;
+	foreach ( $tops as $i => $c ) {
+		if ( isset( $kids[ $c->term_id ] ) ) {
+			$local = (int) $c->term_id;
+			unset( $tops[ $i ] );
+			break;
+		}
+	}
+	$tops = array_values( $tops );
+	if ( ! $local && $tops ) {
+		$local = (int) $tops[0]->term_id;
+		array_shift( $tops );
+	}
+	if ( $local ) {
+		$ids['local'] = $local;
+	}
+	foreach ( array( 'col1', 'col2', 'col3' ) as $i => $k ) {
+		if ( isset( $tops[ $i ] ) ) {
+			$ids[ $k ] = (int) $tops[ $i ]->term_id;
+		}
+	}
+	if ( $vid ) {
+		$ids['video'] = $vid;
+	}
+	return $ids;
 }
 
 /** Colour overrides as CSS variables, printed after the main stylesheet (only changed values). */

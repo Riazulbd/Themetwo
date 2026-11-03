@@ -31,9 +31,30 @@ function np_get_posts( $args, $mark = true ) {
 		'no_found_rows'       => true,
 		'post__not_in'        => $np_shown,
 	) );
-	$posts    = get_posts( $args + array( 'suppress_filters' => false ) );
+	$posts    = np_prime_thumbs( get_posts( $args + array( 'suppress_filters' => false ) ) );
 	if ( $mark ) {
 		$np_shown = array_merge( $np_shown, wp_list_pluck( $posts, 'ID' ) );
+	}
+	return $posts;
+}
+
+/**
+ * Load all the featured images (and their metadata) for a list of posts in one go.
+ * Without this, WordPress fetches each card's image with its own queries.
+ *
+ * @param WP_Post[] $posts Posts.
+ * @return WP_Post[] The same posts.
+ */
+function np_prime_thumbs( $posts ) {
+	$ids = array();
+	foreach ( (array) $posts as $p ) {
+		$t = get_post_thumbnail_id( $p );
+		if ( $t ) {
+			$ids[] = (int) $t;
+		}
+	}
+	if ( $ids ) {
+		_prime_post_caches( array_unique( $ids ), false, true );
 	}
 	return $posts;
 }
@@ -466,6 +487,9 @@ if ( ! function_exists( 'np_latest_box' ) ) {
 			'post__not_in'        => $exclude,
 			'ignore_sticky_posts' => true,
 			'no_found_rows'       => true,
+			// Only titles and dates are printed: skip loading terms and custom fields.
+			'update_post_term_cache' => false,
+			'update_post_meta_cache' => false,
 		) );
 		if ( ! $posts ) {
 			return;

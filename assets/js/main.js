@@ -20,6 +20,12 @@
 		if (!target) { return; }
 		var open = btn.getAttribute('aria-expanded') !== 'true';
 		closeAll(btn);
+		/* The drawer copies the header menu on first open instead of the page carrying it twice. */
+		var holder = open && target.querySelector('[data-clone]');
+		if (holder && !holder.firstChild) {
+			var from = document.querySelector(holder.getAttribute('data-clone'));
+			if (from) { holder.appendChild(from.cloneNode(true)); }
+		}
 		target.hidden = !open;
 		btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 		if (open) {
@@ -85,8 +91,11 @@
 		try { seen = sessionStorage.getItem(key) === '1'; } catch (err) {}
 		if (!seen) {
 			var ping = function () {
-				var body = 'id=' + encodeURIComponent(NP.id);
+				var n = NP.sample > 1 ? NP.sample : 1;
 				try { sessionStorage.setItem(key, '1'); } catch (err) {}
+				/* Sampling: count 1 view in n and let it stand for n, so totals stay right on average. */
+				if (n > 1 && Math.random() * n >= 1) { return; }
+				var body = 'id=' + encodeURIComponent(NP.id) + '&w=' + n;
 				if (window.fetch) {
 					fetch(NP.view, {
 						method: 'POST',
