@@ -4,7 +4,7 @@
  * masthead, pill category nav (from the menu assigned to "Category navigation")
  * and (front page only) the breaking ticker.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<a class="skip-link" href="#main"><?php esc_html_e( 'Skip to content', 'news-press' ); ?></a>
+<a class="skip-link" href="#main"><?php esc_html_e( 'Skip to content', 'khobor-press' ); ?></a>
 
 <?php if ( np_opt( 'topbar_date' ) ) : ?>
 <div class="topbar">
@@ -35,14 +35,15 @@ defined( 'ABSPATH' ) || exit;
 			<div class="brand"><?php np_logo( 'header' ); ?></div>
 			<div class="actions">
 				<div class="hsearch"><?php get_search_form(); ?></div>
-				<button class="icon-btn js-toggle" type="button" data-target="msearch" aria-controls="msearch" aria-expanded="false" aria-label="<?php esc_attr_e( 'Search news', 'news-press' ); ?>"><?php echo np_icon( 'search' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
-				<button class="icon-btn js-toggle" type="button" data-target="drawer" aria-controls="drawer" aria-expanded="false" aria-label="<?php esc_attr_e( 'Menu', 'news-press' ); ?>"><?php echo np_icon( 'menu' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+				<?php np_mode_button(); ?>
+				<button class="icon-btn js-toggle" type="button" data-target="msearch" aria-controls="msearch" aria-expanded="false" aria-label="<?php esc_attr_e( 'Search news', 'khobor-press' ); ?>"><?php echo np_icon( 'search' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+				<button class="icon-btn js-toggle" type="button" data-target="drawer" aria-controls="drawer" aria-expanded="false" aria-label="<?php esc_attr_e( 'Menu', 'khobor-press' ); ?>"><?php echo np_icon( 'menu' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
 			</div>
 		</div>
 
 		<div class="msearch" id="msearch" hidden><?php get_search_form(); ?></div>
 
-		<nav class="catnav" aria-label="<?php esc_attr_e( 'Categories', 'news-press' ); ?>">
+		<nav class="catnav" aria-label="<?php esc_attr_e( 'Categories', 'khobor-press' ); ?>">
 			<?php
 			if ( has_nav_menu( 'primary' ) ) {
 				wp_nav_menu( array(
@@ -67,7 +68,7 @@ defined( 'ABSPATH' ) || exit;
 </header>
 
 <div class="drawer" id="drawer" hidden>
-	<nav aria-label="<?php esc_attr_e( 'All categories', 'news-press' ); ?>">
+	<nav aria-label="<?php esc_attr_e( 'All categories', 'khobor-press' ); ?>">
 		<?php
 		if ( has_nav_menu( 'primary' ) ) {
 			wp_nav_menu( array( 'theme_location' => 'primary', 'container' => false, 'menu_class' => 'drawer-list', 'depth' => 1, 'fallback_cb' => false ) );

@@ -2,7 +2,7 @@
 /**
  * Theme supports, menus, image sizes and widget areas.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 if ( ! function_exists( 'np_setup' ) ) {
 	/** Register theme features. */
 	function np_setup() {
-		load_theme_textdomain( 'news-press', NP_DIR . '/languages' );
+		load_theme_textdomain( 'khobor-press', NP_DIR . '/languages' );
 
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'post-thumbnails' );
@@ -37,9 +37,9 @@ if ( ! function_exists( 'np_setup' ) ) {
 		add_image_size( 'np-thumb', 240, 160, true );   // 3:2 compact rows.
 
 		register_nav_menus( array(
-			'primary'      => __( 'Category navigation (pills)', 'news-press' ),
-			'footer-1'     => __( 'Footer column 1', 'news-press' ),
-			'footer-2'     => __( 'Footer column 2', 'news-press' ),
+			'primary'      => __( 'Category navigation (pills)', 'khobor-press' ),
+			'footer-1'     => __( 'Footer column 1', 'khobor-press' ),
+			'footer-2'     => __( 'Footer column 2', 'khobor-press' ),
 		) );
 	}
 }
@@ -60,11 +60,11 @@ function np_widgets_init() {
 		'after_title'   => '</h2>',
 	);
 	$areas = array(
-		'ad-header'        => array( __( 'Ad: below header (728×90)', 'news-press' ), __( 'Shown under the header on home and archives.', 'news-press' ) ),
-		'ad-home'          => array( __( 'Ad: home between sections (728×90)', 'news-press' ), __( 'Between the top-stories grid and the featured section.', 'news-press' ) ),
-		'ad-single-inline' => array( __( 'Ad: in article (after 3rd paragraph)', 'news-press' ), __( '728×90 on desktop, 300×250 on mobile.', 'news-press' ) ),
-		'ad-sidebar'       => array( __( 'Ad: sidebar (300×250)', 'news-press' ), __( 'Bottom of the article sidebar.', 'news-press' ) ),
-		'sidebar-extra'    => array( __( 'Sidebar: extra widgets', 'news-press' ), __( 'Added below "latest news" in the article sidebar.', 'news-press' ) ),
+		'ad-header'        => array( __( 'Ad: below header (728×90)', 'khobor-press' ), __( 'Shown under the header on home and archives.', 'khobor-press' ) ),
+		'ad-home'          => array( __( 'Ad: home between sections (728×90)', 'khobor-press' ), __( 'Between the top-stories grid and the featured section.', 'khobor-press' ) ),
+		'ad-single-inline' => array( __( 'Ad: in article (after 3rd paragraph)', 'khobor-press' ), __( '728×90 on desktop, 300×250 on mobile.', 'khobor-press' ) ),
+		'ad-sidebar'       => array( __( 'Ad: sidebar (300×250)', 'khobor-press' ), __( 'Bottom of the article sidebar.', 'khobor-press' ) ),
+		'sidebar-extra'    => array( __( 'Sidebar: extra widgets', 'khobor-press' ), __( 'Added below "latest news" in the article sidebar.', 'khobor-press' ) ),
 	);
 	foreach ( $areas as $id => $a ) {
 		register_sidebar( array_merge( $common, array( 'id' => $id, 'name' => $a[0], 'description' => $a[1] ) ) );
@@ -118,3 +118,24 @@ add_filter( 'body_class', function ( $classes ) {
 	$classes[] = 'np';
 	return $classes;
 } );
+
+/**
+ * Never ask wordpress.org about updates for this theme.
+ *
+ * WordPress matches themes to wordpress.org by folder name. If a different theme
+ * with the same name exists there, "Update" would replace this theme with that one.
+ * Removing our theme from the update-check request makes that impossible.
+ */
+function np_exclude_from_org_updates( $args, $url ) {
+	if ( false === strpos( $url, '://api.wordpress.org/themes/update-check' ) || empty( $args['body']['themes'] ) ) {
+		return $args;
+	}
+	$data = json_decode( $args['body']['themes'], true );
+	if ( ! is_array( $data ) || empty( $data['themes'] ) ) {
+		return $args;
+	}
+	unset( $data['themes'][ get_template() ], $data['themes'][ get_stylesheet() ] );
+	$args['body']['themes'] = wp_json_encode( $data );
+	return $args;
+}
+add_filter( 'http_request_args', 'np_exclude_from_org_updates', 10, 2 );

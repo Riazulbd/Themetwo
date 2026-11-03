@@ -8,7 +8,7 @@
  * All functions are pluggable (wrapped in function_exists) so a child theme
  * can replace them.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -172,10 +172,10 @@ if ( ! function_exists( 'np_bn_ago' ) ) {
 		}
 		if ( ! np_is_bangla() ) {
 			if ( $diff < MINUTE_IN_SECONDS ) {
-				$out = __( 'Just now', 'news-press' );
+				$out = __( 'Just now', 'khobor-press' );
 			} elseif ( $diff < DAY_IN_SECONDS ) {
 				/* translators: %s: time span, e.g. "3 hours". */
-				$out = sprintf( __( '%s ago', 'news-press' ), human_time_diff( $ts ) );
+				$out = sprintf( __( '%s ago', 'khobor-press' ), human_time_diff( $ts ) );
 			} else {
 				$out = np_bn_date( $ts );
 			}

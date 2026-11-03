@@ -2,7 +2,7 @@
 /**
  * Category, tag and date archives. Child categories appear as pills under the title.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;

@@ -1,16 +1,16 @@
 <?php
 /**
- * News Press theme bootstrap.
+ * Khobor Press theme bootstrap.
  *
  * Every feature lives in its own file under /inc so a child theme can
  * override or unhook pieces without copying the whole theme.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NP_VERSION', '1.0.0' );
+define( 'NP_VERSION', '1.1.0' );
 define( 'NP_DIR', get_template_directory() );
 define( 'NP_URI', get_template_directory_uri() );
 
@@ -22,6 +22,7 @@ $np_includes = array(
 	'icons',           // Inline SVG icons (share + social).
 	'template-tags',   // Cards, meta line, share row, breadcrumbs, most-read.
 	'views',           // Cache-friendly view counter for "most read".
+	'color-mode',      // Light/dark mode by time of day, with a visitor switch.
 	'performance',     // Inline CSS, font preload, deferred JS, head cleanup.
 	'seo',             // NewsArticle / BreadcrumbList JSON-LD and Open Graph.
 );

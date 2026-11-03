@@ -4,7 +4,7 @@
  * independent of the Customizer. One form, one tab per group of settings, saved
  * through the Settings API into the single `np_options` option.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -30,8 +30,8 @@ add_filter( 'option_page_capability_np_options_group', function () {
 /** Add the top-level menu item. */
 function np_panel_menu() {
 	add_menu_page(
-		__( 'Theme Panel', 'news-press' ),
-		__( 'Theme Panel', 'news-press' ),
+		__( 'Theme Panel', 'khobor-press' ),
+		__( 'Theme Panel', 'khobor-press' ),
 		'edit_theme_options',
 		NP_PANEL_SLUG,
 		'np_panel_render',
@@ -55,9 +55,9 @@ function np_panel_assets( $hook ) {
 	wp_enqueue_style( 'np-panel', NP_URI . '/assets/admin/panel.css', array(), NP_VERSION );
 	wp_enqueue_script( 'np-panel', NP_URI . '/assets/admin/panel.js', array( 'jquery', 'wp-color-picker' ), NP_VERSION, true );
 	wp_localize_script( 'np-panel', 'npPanel', array(
-		'chooseTitle' => __( 'Choose an image', 'news-press' ),
-		'chooseBtn'   => __( 'Use this image', 'news-press' ),
-		'confirm'     => __( 'Reset every Theme Panel setting to its default? This cannot be undone.', 'news-press' ),
+		'chooseTitle' => __( 'Choose an image', 'khobor-press' ),
+		'chooseBtn'   => __( 'Use this image', 'khobor-press' ),
+		'confirm'     => __( 'Reset every Theme Panel setting to its default? This cannot be undone.', 'khobor-press' ),
 	) );
 }
 add_action( 'admin_enqueue_scripts', 'np_panel_assets' );
@@ -70,16 +70,17 @@ add_action( 'admin_enqueue_scripts', 'np_panel_assets' );
  */
 function np_category_choices( $f ) {
 	if ( ! empty( $f['latest'] ) ) {
-		$choices = array(
-			''     => __( 'All categories (latest news)', 'news-press' ),
-			'hide' => __( '— Hide this section —', 'news-press' ),
-		);
+		$first = __( 'All categories (latest news)', 'khobor-press' );
 	} elseif ( ! empty( $f['slug'] ) ) {
 		/* translators: %s: category slug. */
-		$choices = array( '' => sprintf( __( 'Default (%s)', 'news-press' ), $f['slug'] ) );
+		$first = sprintf( __( 'Default (%s)', 'khobor-press' ), $f['slug'] );
 	} else {
-		$choices = array( '' => __( '— Not shown —', 'news-press' ) );
+		$first = __( 'Automatic (picks a busy category)', 'khobor-press' );
 	}
+	$choices = array(
+		''     => $first,
+		'hide' => __( '— Hide this section —', 'khobor-press' ),
+	);
 	$by_parent = array();
 	foreach ( get_categories( array( 'hide_empty' => false, 'orderby' => 'name' ) ) as $c ) {
 		$by_parent[ $c->parent ][] = $c;
@@ -120,7 +121,7 @@ function np_panel_field( $key, $f, $value ) {
 				esc_attr( $id ),
 				esc_attr( $name ),
 				checked( $value, '1', false ),
-				esc_html( isset( $f['text'] ) ? $f['text'] : __( 'Enabled', 'news-press' ) )
+				esc_html( isset( $f['text'] ) ? $f['text'] : __( 'Enabled', 'khobor-press' ) )
 			);
 			break;
 
@@ -149,8 +150,8 @@ function np_panel_field( $key, $f, $value ) {
 			echo '<div class="np-img">';
 			printf( '<input type="hidden" id="%s" name="%s" value="%s">', esc_attr( $id ), esc_attr( $name ), esc_attr( $value ) );
 			echo '<div class="np-img-preview">' . ( $has ? wp_get_attachment_image( (int) $value, 'medium' ) : '' ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput -- core markup.
-			printf( '<button type="button" class="button np-img-pick">%s</button> ', esc_html__( 'Choose image', 'news-press' ) );
-			printf( '<button type="button" class="button-link np-img-remove"%s>%s</button>', $has ? '' : ' hidden', esc_html__( 'Remove', 'news-press' ) ); // phpcs:ignore WordPress.Security.EscapeOutput
+			printf( '<button type="button" class="button np-img-pick">%s</button> ', esc_html__( 'Choose image', 'khobor-press' ) );
+			printf( '<button type="button" class="button-link np-img-remove"%s>%s</button>', $has ? '' : ' hidden', esc_html__( 'Remove', 'khobor-press' ) ); // phpcs:ignore WordPress.Security.EscapeOutput
 			echo '</div>';
 			break;
 
@@ -180,21 +181,21 @@ function np_panel_field( $key, $f, $value ) {
 /** Print the Theme Panel screen. */
 function np_panel_render() {
 	if ( ! current_user_can( 'edit_theme_options' ) ) {
-		wp_die( esc_html__( 'You do not have permission to change theme options.', 'news-press' ) );
+		wp_die( esc_html__( 'You do not have permission to change theme options.', 'khobor-press' ) );
 	}
 	$tabs   = np_panel_tabs();
 	$values = np_options();
 	$theme  = wp_get_theme();
 	?>
 	<div class="wrap np-panel">
-		<h1><?php esc_html_e( 'Theme Panel', 'news-press' ); ?> <span class="np-ver"><?php echo esc_html( $theme->get( 'Name' ) . ' ' . $theme->get( 'Version' ) ); ?></span></h1>
+		<h1><?php esc_html_e( 'Theme Panel', 'khobor-press' ); ?> <span class="np-ver"><?php echo esc_html( $theme->get( 'Name' ) . ' ' . $theme->get( 'Version' ) ); ?></span></h1>
 		<?php settings_errors(); ?>
 
 		<form method="post" action="options.php" id="np-panel-form">
 			<?php settings_fields( 'np_options_group' ); ?>
 			<input type="hidden" name="np_options[_form]" value="1">
 
-			<nav class="nav-tab-wrapper np-tabs" aria-label="<?php esc_attr_e( 'Theme Panel sections', 'news-press' ); ?>">
+			<nav class="nav-tab-wrapper np-tabs" aria-label="<?php esc_attr_e( 'Theme Panel sections', 'khobor-press' ); ?>">
 				<?php foreach ( $tabs as $id => $tab ) : ?>
 					<a class="nav-tab" href="#np-tab-<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $tab['label'] ); ?></a>
 				<?php endforeach; ?>
@@ -233,8 +234,8 @@ function np_panel_render() {
 			<?php endforeach; ?>
 
 			<p class="submit np-submit">
-				<?php submit_button( __( 'Save changes', 'news-press' ), 'primary', 'submit', false ); ?>
-				<?php submit_button( __( 'Reset to defaults', 'news-press' ), 'delete', 'np_reset', false ); ?>
+				<?php submit_button( __( 'Save changes', 'khobor-press' ), 'primary', 'submit', false ); ?>
+				<?php submit_button( __( 'Reset to defaults', 'khobor-press' ), 'delete', 'np_reset', false ); ?>
 			</p>
 		</form>
 	</div>

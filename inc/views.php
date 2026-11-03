@@ -9,7 +9,7 @@
  *
  * Disable with: add_filter( 'np_enable_view_counter', '__return_false' );
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;

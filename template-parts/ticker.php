@@ -3,7 +3,7 @@
  * Breaking ticker. Uses posts with the Theme Panel's ticker tag when there are any, otherwise
  * the newest headlines. Scrolls with a CSS-only animation (no JavaScript); it pauses on hover or focus and stays still for readers who prefer reduced motion.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -28,7 +28,7 @@ foreach ( $np_items as $np_p ) {
 }
 $np_dur = max( 18, (int) round( $np_chars / 14 ) );
 ?>
-<div class="ticker" role="region" aria-label="<?php esc_attr_e( 'Breaking news', 'news-press' ); ?>">
+<div class="ticker" role="region" aria-label="<?php esc_attr_e( 'Breaking news', 'khobor-press' ); ?>">
 	<span class="ticker-badge b"><span class="dot" aria-hidden="true"></span><?php echo esc_html( $np_label ); ?></span>
 	<div class="ticker-view">
 		<div class="ticker-track" style="--np-ticker:<?php echo (int) $np_dur; ?>s">

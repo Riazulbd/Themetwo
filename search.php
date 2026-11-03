@@ -2,7 +2,7 @@
 /**
  * Search results.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -17,14 +17,14 @@ global $wp_query;
 			<?php
 			if ( get_search_query() ) {
 				/* translators: %s: search term. */
-				printf( esc_html__( 'Results for "%s"', 'news-press' ), esc_html( get_search_query() ) );
+				printf( esc_html__( 'Results for "%s"', 'khobor-press' ), esc_html( get_search_query() ) );
 			} else {
-				esc_html_e( 'All news', 'news-press' );
+				esc_html_e( 'All news', 'khobor-press' );
 			}
 			?>
 		</h1>
 		<?php if ( get_search_query() ) : ?>
-			<p class="page-desc"><?php echo esc_html( sprintf( _n( '%s result found', '%s results found', (int) $wp_query->found_posts, 'news-press' ), np_bn_digits( (int) $wp_query->found_posts ) ) ); ?></p>
+			<p class="page-desc"><?php echo esc_html( sprintf( _n( '%s result found', '%s results found', (int) $wp_query->found_posts, 'khobor-press' ), np_bn_digits( (int) $wp_query->found_posts ) ) ); ?></p>
 		<?php endif; ?>
 		<div class="page-search"><?php get_search_form(); ?></div>
 	</header>

@@ -8,7 +8,7 @@
  * - Core bloat removed: emoji, block-library CSS on templates that don't need it,
  *   oEmbed discovery, RSD/WLW, generator.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -24,28 +24,113 @@ function np_head_preloads() {
 		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( np_font_url() ) );
 	}
 
-	// LCP image: featured image on single, lead story on the front page.
-	$lcp = 0;
-	if ( is_singular() && has_post_thumbnail() ) {
-		$lcp = get_post_thumbnail_id();
-	} elseif ( is_front_page() ) {
-		$lead = np_front_lead_post();
-		$lcp  = ( $lead && has_post_thumbnail( $lead ) ) ? get_post_thumbnail_id( $lead ) : 0;
-	}
-	if ( $lcp ) {
-		$src    = wp_get_attachment_image_src( $lcp, 'np-lead' );
-		$srcset = wp_get_attachment_image_srcset( $lcp, 'np-lead' );
-		if ( $src ) {
-			printf(
-				'<link rel="preload" as="image" href="%s"%s imagesizes="%s" fetchpriority="high">' . "\n",
-				esc_url( $src[0] ),
-				$srcset ? ' imagesrcset="' . esc_attr( $srcset ) . '"' : '',
-				esc_attr( '(max-width: 820px) calc(100vw - 32px), 760px' )
-			);
-		}
+	$img = np_lcp_image();
+	if ( $img ) {
+		printf(
+			'<link rel="preload" as="image" href="%s"%s imagesizes="%s" fetchpriority="high">' . "\n",
+			esc_url( $img['src'] ),
+			$img['srcset'] ? ' imagesrcset="' . esc_attr( $img['srcset'] ) . '"' : '',
+			esc_attr( $img['sizes'] )
+		);
 	}
 }
 add_action( 'wp_head', 'np_head_preloads', 1 );
+
+/**
+ * The largest above-the-fold image: the featured image on a post, the lead story on the front page.
+ *
+ * @return array{src:string,srcset:string,sizes:string}|null
+ */
+function np_lcp_image() {
+	static $img = false;
+	if ( false !== $img ) {
+		return $img;
+	}
+	$img = null;
+	$id  = 0;
+	if ( is_singular() && has_post_thumbnail() ) {
+		$id = get_post_thumbnail_id();
+	} elseif ( is_front_page() ) {
+		$lead = np_front_lead_post();
+		$id   = ( $lead && has_post_thumbnail( $lead ) ) ? get_post_thumbnail_id( $lead ) : 0;
+	}
+	if ( $id ) {
+		$src = wp_get_attachment_image_src( $id, 'np-lead' );
+		if ( $src ) {
+			$srcset = wp_get_attachment_image_srcset( $id, 'np-lead' );
+			$img    = array(
+				'src'    => $src[0],
+				'srcset' => $srcset ? $srcset : '',
+				'sizes'  => '(max-width: 820px) calc(100vw - 32px), 760px',
+			);
+		}
+	}
+	return $img;
+}
+
+/**
+ * Response headers for speed behind a CDN (Cloudflare):
+ * - Link: rel=preload headers. Cloudflare turns these into "Early Hints", so the browser
+ *   starts fetching the font and the main image while the server is still building the page.
+ * - Cache-Control with s-maxage, so a CDN set to cache HTML can serve pages without
+ *   waking WordPress. Browsers still revalidate (max-age=0). Never sent for logged-in users,
+ *   previews, search, 404s or password-protected posts.
+ */
+function np_response_headers() {
+	if ( headers_sent() || is_admin() || is_feed() || is_robots() || is_trackback() ) {
+		return;
+	}
+	$links = array();
+	if ( np_use_bangla_font() ) {
+		$links[] = '<' . esc_url_raw( np_font_url() ) . '>; rel=preload; as=font; type="font/woff2"; crossorigin';
+	}
+	$img = np_lcp_image();
+	if ( $img ) {
+		$link = '<' . esc_url_raw( $img['src'] ) . '>; rel=preload; as=image; fetchpriority=high';
+		if ( $img['srcset'] && false === strpos( $img['srcset'], '"' ) ) {
+			$link .= '; imagesrcset="' . $img['srcset'] . '"; imagesizes="' . $img['sizes'] . '"';
+		}
+		$links[] = $link;
+	}
+	foreach ( $links as $l ) {
+		header( 'Link: ' . $l, false );
+	}
+
+	$ttl = (int) np_opt( 'edge_ttl' );
+	if ( $ttl > 0 && ! is_user_logged_in() && ! is_preview() && ! is_search() && ! is_404() && ! post_password_required() && ! is_customize_preview() ) {
+		header( 'Cache-Control: public, max-age=0, s-maxage=' . $ttl . ', stale-while-revalidate=60, stale-if-error=86400' );
+	}
+}
+add_action( 'template_redirect', 'np_response_headers', 99 );
+
+/**
+ * Instant page transitions: the browser prepares the next article while the reader hovers or
+ * presses a link, so the click opens it almost immediately (Chrome, Edge and other Chromium
+ * browsers; others simply load normally). WordPress 6.8+ prints the rules itself; we only
+ * ask it to prerender, and print our own rules on older versions.
+ */
+add_filter( 'wp_speculation_rules_configuration', function () {
+	return array(
+		'mode'      => 'prerender',
+		'eagerness' => 'moderate',
+	);
+} );
+add_action( 'wp_footer', function () {
+	if ( function_exists( 'wp_get_speculation_rules_configuration' ) || is_user_logged_in() ) {
+		return;
+	}
+	$rules = array(
+		'prerender' => array( array(
+			'where'     => array( 'and' => array(
+				array( 'href_matches' => '/*' ),
+				array( 'not' => array( 'href_matches' => array( '/wp-*.php', '/wp-admin/*', '/wp-content/*', '/*\\?(.+)' ) ) ),
+				array( 'not' => array( 'selector_matches' => 'a[rel~=nofollow]' ) ),
+			) ),
+			'eagerness' => 'moderate',
+		) ),
+	);
+	echo '<script type="speculationrules">' . wp_json_encode( $rules ) . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+}, 20 );
 
 /** The front-page lead story (sticky first, else newest). Cached per request. */
 function np_front_lead_post() {
@@ -117,8 +202,8 @@ function np_scripts() {
 		'in_footer' => true,
 	) );
 	$data = array(
-		'copied' => __( 'Link copied', 'news-press' ),
-		'failed' => __( 'Copy failed', 'news-press' ),
+		'copied' => __( 'Link copied', 'khobor-press' ),
+		'failed' => __( 'Copy failed', 'khobor-press' ),
 	);
 	if ( is_singular( 'post' ) && np_views_enabled() ) {
 		$data['view'] = esc_url_raw( rest_url( 'np/v1/view' ) );

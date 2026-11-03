@@ -2,7 +2,7 @@
 /**
  * Static page (about, contact, policies). Single readable column.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;

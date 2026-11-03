@@ -2,7 +2,7 @@
 /**
  * Single post. No author box, byline or bio and no comments, by design.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -11,24 +11,15 @@ get_header();
 
 while ( have_posts() ) :
 	the_post();
-	$np_top_cat = np_post_top_cat();
 	?>
 <main id="main" class="wrap">
 	<div class="layout">
 		<article <?php post_class( 'post' ); ?>>
 			<header class="post-head">
-				<?php np_breadcrumbs(); ?>
-				<?php if ( $np_top_cat ) : ?>
-					<a class="pill-solid b" href="<?php echo esc_url( get_category_link( $np_top_cat ) ); ?>"><?php echo esc_html( $np_top_cat->name ); ?></a>
-				<?php endif; ?>
 				<h1 class="post-title b"><?php the_title(); ?></h1>
 				<?php if ( has_excerpt() ) : ?>
 					<p class="post-sub"><?php echo esc_html( wp_strip_all_tags( get_the_excerpt() ) ); ?></p>
 				<?php endif; ?>
-				<div class="post-meta">
-					<?php np_meta_line(); ?>
-					<?php np_share_row(); ?>
-				</div>
 			</header>
 
 			<?php if ( has_post_thumbnail() ) : ?>
@@ -49,6 +40,11 @@ while ( have_posts() ) :
 				</figure>
 			<?php endif; ?>
 
+			<div class="post-meta">
+				<?php np_meta_line(); ?>
+				<?php np_share_row(); ?>
+			</div>
+
 			<div class="entry">
 				<?php
 				the_content();
@@ -59,11 +55,11 @@ while ( have_posts() ) :
 			<?php
 			$np_tags = get_the_tags();
 			// The ticker's "breaking" tag is an editorial flag, not a topic: keep it out of the tag list.
-			$np_tags = $np_tags ? array_values( wp_list_filter( $np_tags, array( 'slug' => apply_filters( 'np_breaking_tag', 'breaking' ) ), 'NOT' ) ) : array();
+			$np_tags = $np_tags ? array_values( wp_list_filter( $np_tags, array( 'slug' => apply_filters( 'np_breaking_tag', np_opt( 'ticker_tag' ) ) ), 'NOT' ) ) : array();
 			if ( $np_tags ) :
 				?>
 				<div class="post-tags">
-					<span class="b"><?php esc_html_e( 'Tags:', 'news-press' ); ?></span>
+					<span class="b"><?php esc_html_e( 'Tags:', 'khobor-press' ); ?></span>
 					<ul class="pills pills-sm">
 						<?php foreach ( $np_tags as $np_t ) : ?>
 							<li><a href="<?php echo esc_url( get_tag_link( $np_t ) ); ?>" rel="tag"><?php echo esc_html( $np_t->name ); ?></a></li>
@@ -73,7 +69,7 @@ while ( have_posts() ) :
 			<?php endif; ?>
 
 			<div class="share-box">
-				<p class="share-box-title b"><?php esc_html_e( 'Enjoyed this story? Share it', 'news-press' ); ?></p>
+				<p class="share-box-title b"><?php esc_html_e( 'Enjoyed this story? Share it', 'khobor-press' ); ?></p>
 				<?php np_share_row(); ?>
 			</div>
 
@@ -82,12 +78,12 @@ while ( have_posts() ) :
 			$np_next = get_next_post();
 			if ( $np_prev || $np_next ) :
 				?>
-				<nav class="post-nav" aria-label="<?php esc_attr_e( 'Previous and next stories', 'news-press' ); ?>">
+				<nav class="post-nav" aria-label="<?php esc_attr_e( 'Previous and next stories', 'khobor-press' ); ?>">
 					<?php if ( $np_prev ) : ?>
-						<a class="pn pn-prev" href="<?php echo esc_url( get_permalink( $np_prev ) ); ?>" rel="prev"><span class="pn-k b">← <?php esc_html_e( 'Previous story', 'news-press' ); ?></span><span class="pn-t b"><?php echo esc_html( get_the_title( $np_prev ) ); ?></span></a>
+						<a class="pn pn-prev" href="<?php echo esc_url( get_permalink( $np_prev ) ); ?>" rel="prev"><span class="pn-k b">← <?php esc_html_e( 'Previous story', 'khobor-press' ); ?></span><span class="pn-t b"><?php echo esc_html( get_the_title( $np_prev ) ); ?></span></a>
 					<?php endif; ?>
 					<?php if ( $np_next ) : ?>
-						<a class="pn pn-next" href="<?php echo esc_url( get_permalink( $np_next ) ); ?>" rel="next"><span class="pn-k b"><?php esc_html_e( 'Next story', 'news-press' ); ?> →</span><span class="pn-t b"><?php echo esc_html( get_the_title( $np_next ) ); ?></span></a>
+						<a class="pn pn-next" href="<?php echo esc_url( get_permalink( $np_next ) ); ?>" rel="next"><span class="pn-k b"><?php esc_html_e( 'Next story', 'khobor-press' ); ?> →</span><span class="pn-t b"><?php echo esc_html( get_the_title( $np_next ) ); ?></span></a>
 					<?php endif; ?>
 				</nav>
 			<?php endif; ?>
@@ -109,7 +105,7 @@ while ( have_posts() ) :
 		$np_more = $np_top_cat ? get_category_link( $np_top_cat ) : '';
 		?>
 		<section class="related" aria-labelledby="rel-h">
-			<?php np_section_head( __( 'Related stories', 'news-press' ), $np_more, __( 'More →', 'news-press' ), 'rel-h' ); ?>
+			<?php np_section_head( __( 'Related stories', 'khobor-press' ), $np_more, __( 'More →', 'khobor-press' ), 'rel-h' ); ?>
 			<div class="grid-4 cards-m-compact">
 				<?php foreach ( $np_related as $np_p ) { np_card( $np_p ); } ?>
 			</div>

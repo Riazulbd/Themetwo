@@ -4,7 +4,7 @@
  * BreadcrumbList JSON-LD. Skipped automatically when Yoast SEO, Rank Math,
  * SEOPress or All in One SEO is active (they output their own).
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;

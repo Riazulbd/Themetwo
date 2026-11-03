@@ -1,7 +1,7 @@
-# Bangla (Bangladesh) translation for News Press.
+# Bangla (Bangladesh) translation for Khobor Press.
 msgid ""
 msgstr ""
-"Project-Id-Version: News Press 1.0.0\n"
+"Project-Id-Version: Khobor Press 1.0.0\n"
 "PO-Revision-Date: 2026-11-03 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -229,6 +229,9 @@ msgstr "পাতা"
 
 msgid "Sorry, nothing was found."
 msgstr "দুঃখিত, কোনো খবর পাওয়া যায়নি।"
+
+msgid "Dark mode"
+msgstr "ডার্ক মোড"
 
 msgid "%s result found"
 msgid_plural "%s results found"

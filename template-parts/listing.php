@@ -3,7 +3,7 @@
  * Shared listing for archive, search and index: first post as a wide lead,
  * the rest as cards, Bangla-digit pagination, sidebar on desktop.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -43,19 +43,19 @@ defined( 'ABSPATH' ) || exit;
 			<?php
 			$np_pages = paginate_links( array(
 				'type'      => 'array',
-				'prev_text' => __( '← Previous', 'news-press' ),
-				'next_text' => __( 'Next →', 'news-press' ),
+				'prev_text' => __( '← Previous', 'khobor-press' ),
+				'next_text' => __( 'Next →', 'khobor-press' ),
 				'mid_size'  => 1,
 			) );
 			if ( $np_pages ) :
 				?>
-				<nav class="pagination" aria-label="<?php esc_attr_e( 'Pagination', 'news-press' ); ?>">
+				<nav class="pagination" aria-label="<?php esc_attr_e( 'Pagination', 'khobor-press' ); ?>">
 					<?php foreach ( $np_pages as $np_link ) { echo wp_kses_post( preg_replace_callback( '/>(\d+)</', function ( $m ) { return '>' . np_bn_digits( $m[1] ) . '<'; }, $np_link ) ); } ?>
 				</nav>
 			<?php endif; ?>
 		<?php else : ?>
 			<div class="empty">
-				<p><?php esc_html_e( 'Sorry, nothing was found.', 'news-press' ); ?></p>
+				<p><?php esc_html_e( 'Sorry, nothing was found.', 'khobor-press' ); ?></p>
 				<?php get_search_form(); ?>
 			</div>
 		<?php endif; ?>

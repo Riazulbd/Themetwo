@@ -3,7 +3,7 @@
  * Template tags: logo, cards, section heads, meta line, share row,
  * breadcrumbs, ad slots, most-read card, socials. All pluggable.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -167,7 +167,7 @@ if ( ! function_exists( 'np_thumb' ) ) {
 			}
 			echo get_the_post_thumbnail( $post, $size, $attr ); // phpcs:ignore WordPress.Security.EscapeOutput -- core-generated markup.
 		} else {
-			echo '<span class="ph" aria-hidden="true">' . esc_html__( 'Image', 'news-press' ) . '</span>';
+			echo '<span class="ph" aria-hidden="true">' . esc_html__( 'Image', 'khobor-press' ) . '</span>';
 		}
 		if ( $video ) {
 			echo '<span class="play" aria-hidden="true">' . np_icon( 'play', 20 ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
@@ -239,7 +239,7 @@ if ( ! function_exists( 'np_section_head' ) ) {
 	 */
 	function np_section_head( $title, $url = '', $more = null, $id = '' ) {
 		if ( null === $more ) {
-			$more = __( 'All news →', 'news-press' );
+			$more = __( 'All news →', 'khobor-press' );
 		}
 		echo '<div class="sec-head">';
 		printf( '<h2 class="sec-title b"%s>%s</h2>', $id ? ' id="' . esc_attr( $id ) . '"' : '', esc_html( $title ) );
@@ -262,15 +262,15 @@ if ( ! function_exists( 'np_meta_line' ) ) {
 		$mod      = get_post_timestamp( $post, 'modified' );
 		$same_day = wp_date( 'Ymd', $pub ) === wp_date( 'Ymd', $mod );
 		echo '<p class="meta-line">';
-		printf( '<span>%s <time datetime="%s">%s</time></span>', esc_html__( 'Published:', 'news-press' ), esc_attr( get_the_date( 'c', $post ) ), esc_html( np_bn_date( $pub, false, true ) ) );
+		printf( '<span>%s <time datetime="%s">%s</time></span>', esc_html__( 'Published:', 'khobor-press' ), esc_attr( get_the_date( 'c', $post ) ), esc_html( np_bn_date( $pub, false, true ) ) );
 		if ( $mod > $pub + 5 * MINUTE_IN_SECONDS ) {
 			printf( '<span class="sep" aria-hidden="true">·</span><span>%s <time datetime="%s">%s</time></span>',
-				esc_html__( 'Updated:', 'news-press' ),
+				esc_html__( 'Updated:', 'khobor-press' ),
 				esc_attr( get_the_modified_date( 'c', $post ) ),
 				esc_html( $same_day ? np_bn_time( $mod ) : np_bn_date( $mod, false, true ) )
 			);
 		}
-		printf( '<span class="sep" aria-hidden="true">·</span><span class="rt">%s</span>', esc_html( sprintf( /* translators: %s: minutes. */ __( '%s min read', 'news-press' ), np_bn_digits( np_reading_minutes( $post ) ) ) ) );
+		printf( '<span class="sep" aria-hidden="true">·</span><span class="rt">%s</span>', esc_html( sprintf( /* translators: %s: minutes. */ __( '%s min read', 'khobor-press' ), np_bn_digits( np_reading_minutes( $post ) ) ) ) );
 		echo '</p>';
 	}
 }
@@ -292,12 +292,12 @@ if ( ! function_exists( 'np_share_row' ) ) {
 			? 'https://www.facebook.com/dialog/send?app_id=' . rawurlencode( $app ) . '&link=' . $enc . '&redirect_uri=' . $enc
 			: 'fb-messenger://share/?link=' . $enc;
 		$items = apply_filters( 'np_share_items', array(
-			'facebook'  => array( __( 'Facebook', 'news-press' ), 'https://www.facebook.com/sharer/sharer.php?u=' . $enc, __( 'Share on Facebook', 'news-press' ) ),
-			'whatsapp'  => array( __( 'WhatsApp', 'news-press' ), 'https://wa.me/?text=' . rawurlencode( $title . ' ' . $url ), __( 'Share on WhatsApp', 'news-press' ) ),
-			'messenger' => array( __( 'Messenger', 'news-press' ), $ms, __( 'Share on Messenger', 'news-press' ) ),
+			'facebook'  => array( __( 'Facebook', 'khobor-press' ), 'https://www.facebook.com/sharer/sharer.php?u=' . $enc, __( 'Share on Facebook', 'khobor-press' ) ),
+			'whatsapp'  => array( __( 'WhatsApp', 'khobor-press' ), 'https://wa.me/?text=' . rawurlencode( $title . ' ' . $url ), __( 'Share on WhatsApp', 'khobor-press' ) ),
+			'messenger' => array( __( 'Messenger', 'khobor-press' ), $ms, __( 'Share on Messenger', 'khobor-press' ) ),
 		), $post );
 		echo '<div class="share" data-share>';
-		echo '<span class="share-label b">' . esc_html__( 'Share:', 'news-press' ) . '</span>';
+		echo '<span class="share-label b">' . esc_html__( 'Share:', 'khobor-press' ) . '</span>';
 		foreach ( $items as $key => $it ) {
 			printf(
 				'<a class="sh sh-%1$s" href="%2$s" target="_blank" rel="noopener nofollow" aria-label="%3$s"%5$s>%4$s<span class="sh-t b">%6$s</span></a>',
@@ -312,9 +312,9 @@ if ( ! function_exists( 'np_share_row' ) ) {
 		printf(
 			'<button class="sh sh-copy" type="button" data-copy="%1$s" aria-label="%2$s">%3$s<span class="sh-t">%4$s</span></button>',
 			esc_attr( $url ),
-			esc_attr__( 'Copy the link', 'news-press' ),
+			esc_attr__( 'Copy the link', 'khobor-press' ),
 			np_icon( 'copy', 16 ), // phpcs:ignore WordPress.Security.EscapeOutput
-			esc_html__( 'Copy link', 'news-press' )
+			esc_html__( 'Copy link', 'khobor-press' )
 		);
 		echo '<span class="sh-status" role="status" aria-live="polite"></span>';
 		echo '</div>';
@@ -328,7 +328,7 @@ if ( ! function_exists( 'np_breadcrumbs' ) ) {
 		if ( count( $items ) < 2 ) {
 			return;
 		}
-		echo '<nav class="crumbs" aria-label="' . esc_attr__( 'Breadcrumb', 'news-press' ) . '"><ol>';
+		echo '<nav class="crumbs" aria-label="' . esc_attr__( 'Breadcrumb', 'khobor-press' ) . '"><ol>';
 		$last = count( $items ) - 1;
 		foreach ( $items as $i => $it ) {
 			if ( $i === $last && is_singular() ) {
@@ -350,7 +350,7 @@ if ( ! function_exists( 'np_breadcrumbs' ) ) {
  * @return array<int,array{name:string,url:string}>
  */
 function np_breadcrumb_items() {
-	$items = array( array( 'name' => __( 'Home', 'news-press' ), 'url' => home_url( '/' ) ) );
+	$items = array( array( 'name' => __( 'Home', 'khobor-press' ), 'url' => home_url( '/' ) ) );
 	if ( is_single() ) {
 		foreach ( np_post_terms_chain( get_queried_object_id() ) as $t ) {
 			$items[] = array( 'name' => $t->name, 'url' => get_term_link( $t ) );
@@ -369,9 +369,9 @@ function np_breadcrumb_items() {
 	} elseif ( is_page() ) {
 		$items[] = array( 'name' => get_the_title(), 'url' => get_permalink() );
 	} elseif ( is_search() ) {
-		$items[] = array( 'name' => __( 'Search results', 'news-press' ), 'url' => get_search_link() );
+		$items[] = array( 'name' => __( 'Search results', 'khobor-press' ), 'url' => get_search_link() );
 	} elseif ( is_date() ) {
-		$items[] = array( 'name' => __( 'Archive', 'news-press' ), 'url' => '' );
+		$items[] = array( 'name' => __( 'Archive', 'khobor-press' ), 'url' => '' );
 	}
 	return apply_filters( 'np_breadcrumb_items', $items );
 }
@@ -393,11 +393,11 @@ if ( ! function_exists( 'np_ad' ) ) {
 		if ( ! $active && ! np_opt( 'ad_placeholders' ) ) {
 			return;
 		}
-		echo '<aside class="ad ' . esc_attr( $class . ( $active ? '' : ' ad-empty' ) ) . '" aria-label="' . esc_attr__( 'Advertisement', 'news-press' ) . '">';
+		echo '<aside class="ad ' . esc_attr( $class . ( $active ? '' : ' ad-empty' ) ) . '" aria-label="' . esc_attr__( 'Advertisement', 'khobor-press' ) . '">';
 		if ( $active ) {
 			dynamic_sidebar( $area );
 		} else {
-			echo '<span class="ad-k b">' . esc_html__( 'Advertisement', 'news-press' ) . '</span><span class="ad-s">' . esc_html( $label ) . '</span>';
+			echo '<span class="ad-k b">' . esc_html__( 'Advertisement', 'khobor-press' ) . '</span><span class="ad-s">' . esc_html( $label ) . '</span>';
 		}
 		echo '</aside>';
 	}
@@ -446,7 +446,7 @@ if ( ! function_exists( 'np_most_read' ) ) {
 		<section class="most" aria-labelledby="most-h">
 			<div class="most-head">
 				<h2 class="most-title b" id="most-h"><?php echo esc_html( np_home_section( 'most' )['title'] ); ?></h2>
-				<span class="badge badge-dark b"><?php esc_html_e( 'Today', 'news-press' ); ?></span>
+				<span class="badge badge-dark b"><?php esc_html_e( 'Today', 'khobor-press' ); ?></span>
 			</div>
 			<ol class="most-list">
 				<?php foreach ( $posts as $i => $p ) : ?>
@@ -470,7 +470,7 @@ if ( ! function_exists( 'np_latest_box' ) ) {
 		if ( ! $posts ) {
 			return;
 		}
-		echo '<section class="box latest" aria-labelledby="latest-h"><h2 class="box-title b" id="latest-h">' . esc_html__( 'Latest', 'news-press' ) . '</h2><ul>';
+		echo '<section class="box latest" aria-labelledby="latest-h"><h2 class="box-title b" id="latest-h">' . esc_html__( 'Latest', 'khobor-press' ) . '</h2><ul>';
 		foreach ( $posts as $p ) {
 			printf(
 				'<li><a href="%1$s"><time class="meta brand" datetime="%2$s">%3$s</time><span class="latest-t b">%4$s</span></a></li>',
@@ -513,7 +513,7 @@ if ( ! function_exists( 'np_fb_page_box' ) ) {
 		printf(
 			'<iframe class="fbpage-frame" src="%1$s" width="500" height="500" loading="lazy" title="%2$s" allow="encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe>',
 			esc_url( $src ),
-			esc_attr( sprintf( /* translators: %s: site name. */ __( '%s on Facebook', 'news-press' ), get_bloginfo( 'name' ) ) )
+			esc_attr( sprintf( /* translators: %s: site name. */ __( '%s on Facebook', 'khobor-press' ), get_bloginfo( 'name' ) ) )
 		);
 		echo '</section>';
 	}
@@ -527,7 +527,7 @@ if ( ! function_exists( 'np_fb_page_box' ) ) {
 function np_primary_fallback() {
 	$cats = get_categories( array( 'parent' => 0, 'hide_empty' => false, 'exclude' => array( get_option( 'default_category' ) ), 'number' => 11, 'orderby' => 'term_id' ) );
 	echo '<ul class="pills">';
-	printf( '<li class="%s"><a href="%s">%s</a></li>', is_front_page() ? 'current-menu-item' : '', esc_url( home_url( '/' ) ), esc_html__( 'Home', 'news-press' ) );
+	printf( '<li class="%s"><a href="%s">%s</a></li>', is_front_page() ? 'current-menu-item' : '', esc_url( home_url( '/' ) ), esc_html__( 'Home', 'khobor-press' ) );
 	$active = is_single() ? np_post_top_cat() : ( is_category() ? get_queried_object() : null );
 	foreach ( $cats as $c ) {
 		$cur = $active && (int) $active->term_id === (int) $c->term_id;
@@ -603,7 +603,7 @@ function np_socials() {
 			esc_attr( $key ),
 			esc_url( $url ),
 			/* translators: %s: social network. */
-			esc_attr( sprintf( /* translators: 1: site name, 2: social network. */ __( '%1$s on %2$s', 'news-press' ), get_bloginfo( 'name' ), $label ) ),
+			esc_attr( sprintf( /* translators: 1: site name, 2: social network. */ __( '%1$s on %2$s', 'khobor-press' ), get_bloginfo( 'name' ), $label ) ),
 			np_icon( $key ) // phpcs:ignore WordPress.Security.EscapeOutput
 		);
 	}

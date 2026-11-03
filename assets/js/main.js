@@ -1,4 +1,4 @@
-/* News Press — the only script (deferred, no dependencies).
+/* Khobor Press — the only script (deferred, no dependencies).
    1. Header toggles (mobile search / menu drawer)  2. Copy link + Messenger fallback  3. View beacon. */
 (function () {
 	'use strict';
@@ -78,7 +78,8 @@
 	});
 
 	/* 3. View counter: one ping per post per browser session, after the page is idle. */
-	if (NP.view && NP.id) {
+	function startViews() {
+		if (!(NP.view && NP.id)) { return; }
 		var key = 'np_v_' + NP.id;
 		var seen = false;
 		try { seen = sessionStorage.getItem(key) === '1'; } catch (err) {}
@@ -104,5 +105,11 @@
 				setTimeout(ping, 1500);
 			}
 		}
+	}
+	/* A page the browser prerendered for a faster click must not count as a view until it is actually shown. */
+	if (document.prerendering) {
+		document.addEventListener('prerenderingchange', startViews, { once: true });
+	} else {
+		startViews();
 	}
 })();

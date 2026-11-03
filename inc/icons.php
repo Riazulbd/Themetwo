@@ -3,7 +3,7 @@
  * Inline SVG icons (hand-drawn 18×18 glyphs from the design file). Inline SVG
  * means zero extra requests and no icon font.
  *
- * @package News_Press
+ * @package Khobor_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -32,6 +32,8 @@ function np_icon( $name, $size = 18 ) {
 		'search'    => '<circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12.2 12.2l3.8 3.8"/>',
 		'menu'      => '<path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M3 5h12M3 9h12M3 13h12"/>',
 		'close'     => '<path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 4l10 10M14 4L4 14"/>',
+		'sun'       => '<circle cx="9" cy="9" r="3.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M9 1.6v1.7M9 14.7v1.7M1.6 9h1.7M14.7 9h1.7M3.8 3.8l1.2 1.2M13 13l1.2 1.2M14.2 3.8L13 5M5 13l-1.2 1.2"/>',
+		'moon'      => '<path fill="currentColor" d="M15.2 11.2A6.6 6.6 0 0 1 6.8 2.8a.6.6 0 0 0-.8-.7A7.2 7.2 0 1 0 15.9 12a.6.6 0 0 0-.7-.8z"/>',
 		'play'      => '<path fill="currentColor" d="M6 3.5v11l9-5.5z"/>',
 		'arrow'     => '<path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 9h12M10 4l5 5-5 5"/>',
 	);

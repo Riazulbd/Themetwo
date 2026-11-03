@@ -1,4 +1,4 @@
-# News Press — a universal WordPress news theme
+# Khobor Press — a universal WordPress news theme
 
 A light, fast, classic (PHP) theme for news, magazine and blog sites in any language. No page builder, no jQuery, one small deferred script, CSS inlined in `<head>`. It is not tied to one site: every default is neutral, and everything a site owner needs to change lives in a dedicated **Theme Panel** in the admin menu (it does not use the Customizer).
 
@@ -6,7 +6,7 @@ A light, fast, classic (PHP) theme for news, magazine and blog sites in any lang
 
 ## Install
 
-1. Copy this folder to `wp-content/themes/news-press/` (or upload it as a zip under Appearance → Themes → Add New).
+1. Copy this folder to `wp-content/themes/khobor-press/` (the folder name must be unique: do not name it after a theme from wordpress.org) (or upload it as a zip under Appearance → Themes → Add New).
 2. Activate it. Requires WordPress 6.3+ and PHP 7.4+.
 3. Open **Theme Panel** in the admin sidebar and fill in the tabs.
 4. Under **Appearance → Menus**, build a menu and assign it to **Category navigation (pills)**. The pill bar and the mobile drawer show that menu. Optionally assign **Footer column 1/2**. Without menus they fall back to categories.
@@ -18,20 +18,33 @@ A top-level admin screen (capability `edit_theme_options`) with one tab per grou
 
 | Tab | Settings |
 |---|---|
-| General | Header and footer logo (the header falls back to Site Identity's logo, then a text wordmark), tagline. Bangla digits/dates/calendar: automatic, always or never. Top bar on/off. Font: automatic, bundled Bangla font or system font. |
-| Colours | Accent, dark, top bar background and text, footer background and text. |
+| General | Header and footer logo (the header falls back to Site Identity's logo, then a text wordmark), tagline. Interface language (Bengali by default, or follow the site language). Bangla digits/dates/calendar. Light/dark mode default, switch times and the header switch. Top bar on/off. Font: automatic, bundled Bangla font or system font. |
+| Colours | **Header** background and text, separately for light and dark mode (so a logo with a solid background never clashes). Accent, dark, top bar and footer colours. |
 | Footer & contact | Footer description, copyright holder (blank = site name), editor label and name, published-from line, office address, and three contact blocks (heading, phone, email each). |
 | Social | Facebook, YouTube, WhatsApp, X, Instagram, TikTok, Google News: each has a Show switch and a link. |
-| Home page | Breaking ticker (on/off, label, headline count, tag). For Latest, Top stories, the featured section, columns 1–3 and the video band: pick a category and type the title shown on the site. |
-| Sharing & ads | Facebook Page box (URL, title), Facebook App ID, newsletter form action URL, reserved ad boxes. |
+| Home page | Scrolling breaking ticker (on/off, label, headline count, tag). For Latest, Top stories, the featured section, columns 1–3 and the video band: pick a category and a title. Sections left on **Automatic** pick busy categories by themselves, so a fresh install needs no mapping. |
+| Sharing & ads | Facebook Page box (URL, title), Facebook App ID, newsletter form action URL, edge cache time, reserved ad boxes. |
 
 "Reset to defaults" is at the bottom of the panel.
 
 **Upgrading from an older version:** values saved in the Customizer are copied into the new option the first time an admin screen loads. The old values are left in place, so rolling back loses nothing. Defaults that used to point at a specific site (category slugs, emails, placeholder text) are gone; sections without a category chosen are simply hidden.
 
+## Light and dark mode
+
+The page follows the time of day by default (dark from 18:00, light from 06:00, in the visitor's own time) and never flashes the wrong colours, because a tiny inline script sets the mode before the first paint. The round button in the header switches it; the choice is remembered on that device. Choosing the mode that automatic would pick anyway returns the visitor to automatic.
+
+## Speed (and Cloudflare)
+
+- CSS is inlined, one deferred script, no jQuery, system font by default.
+- The main image is preloaded and eager; everything else is lazy.
+- **Early Hints:** the theme sends `Link: rel=preload` headers for the font and the main image. Turn on Cloudflare → Speed → Optimization → **Early Hints** and the browser starts those downloads before WordPress has finished building the page.
+- **Edge caching:** logged-out pages are sent with `s-maxage` (Theme Panel → Sharing & ads, default 300 s). To use it, add a Cloudflare Cache Rule that caches HTML ("Eligible for cache", respect origin TTL), and bypass the cache for cookies starting `wordpress_logged_in` and for `/wp-admin`.
+- **Instant clicks:** Chromium browsers prerender the next article when a link is hovered or pressed (Speculation Rules). Views are only counted once the page is actually shown.
+- Serve images through Cloudflare Polish / WebP or AVIF for the smallest files.
+
 ## Language
 
-Source strings are English. A Bangla translation (`languages/bn_BD.po`/`.mo`) is included, and `languages/news-press.pot` is the template for other languages. Bangla digits, Bangla months and weekdays, and the Bangla calendar (Bangabda) switch on automatically when the site language is Bangla, or from the Theme Panel. Otherwise dates and times follow Settings → General.
+The visitor-facing site is Bengali by default, whatever language WordPress itself is set to (the admin keeps its own language). Set **Site interface language** to "Follow the site language" to use another language. Source strings are English; the Bangla translation is `languages/bn_BD.po`/`.mo` and `languages/khobor-press.pot` is the template for other languages. Bangla digits, months, weekdays and the Bangla calendar (Bangabda) are used whenever the interface is Bengali, or can be forced from the Theme Panel. Otherwise dates follow Settings → General.
 
 ## Widget areas
 
@@ -69,6 +82,10 @@ Source strings are English. A Bangla translation (`languages/bn_BD.po`/`.mo`) is
 | `np_content_width` | Content width. |
 
 Read an option in code with `np_opt( 'key' )`.
+
+## Updates
+
+The theme never asks wordpress.org for updates (`Update URI: false`, and it is removed from the update-check request), so WordPress can't offer to replace it with an unrelated theme of the same name. Update it by uploading the new zip.
 
 ## Rolling back
 
