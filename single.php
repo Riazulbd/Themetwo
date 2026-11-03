@@ -94,6 +94,7 @@ while ( have_posts() ) :
 
 	<?php
 	$np_rel_cat = np_post_cat();
+	$np_top_cat = np_post_top_cat();
 	$np_related = $np_rel_cat ? get_posts( array(
 		'posts_per_page'      => 4,
 		'post__not_in'        => array( get_the_ID() ),
