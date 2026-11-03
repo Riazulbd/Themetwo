@@ -4,7 +4,7 @@
  * BreadcrumbList JSON-LD. Skipped automatically when Yoast SEO, Rank Math,
  * SEOPress or All in One SEO is active (they output their own).
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -56,7 +56,7 @@ function np_meta_tags() {
 	$img   = np_seo_image();
 	$tags  = array(
 		'og:site_name' => get_bloginfo( 'name' ),
-		'og:locale'    => 'bn_BD',
+		'og:locale'    => get_locale(),
 		'og:type'      => is_single() ? 'article' : 'website',
 		'og:title'     => is_singular() ? single_post_title( '', false ) : $title,
 		'og:url'       => $url,
@@ -119,7 +119,7 @@ function np_schema() {
 			'@id'             => home_url( '/#website' ),
 			'url'             => home_url( '/' ),
 			'name'            => get_bloginfo( 'name' ),
-			'inLanguage'      => 'bn-BD',
+			'inLanguage'      => get_bloginfo( 'language' ),
 			'publisher'       => array( '@id' => home_url( '/#organization' ) ),
 			'potentialAction' => array(
 				'@type'       => 'SearchAction',
@@ -139,7 +139,7 @@ function np_schema() {
 			'description'      => np_seo_description(),
 			'datePublished'    => get_the_date( 'c', $post ),
 			'dateModified'     => get_the_modified_date( 'c', $post ),
-			'inLanguage'       => 'bn-BD',
+			'inLanguage'       => get_bloginfo( 'language' ),
 			'author'           => np_schema_org(),
 			'publisher'        => np_schema_org(),
 		);

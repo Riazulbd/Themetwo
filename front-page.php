@@ -1,13 +1,13 @@
 <?php
 /**
- * Front page: lead + side stories, top-news grid, local (Narayanganj) section
- * with upazila pills, most-read card, three category columns, video band.
+ * Front page: lead + side stories, top-stories grid, featured section with
+ * sub-category pills, most-read card, three category columns, video band.
  * Each section's category and title come from Theme Panel → Home page sections.
  *
  * Section order on mobile follows the mobile design (lead → latest → most read
  * → top news → local → columns → video) via CSS `order`, without duplicate markup.
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -56,7 +56,7 @@ $np_local_list = $np_local ? $np_sec_posts( $np_loc_s, 4 ) : array();
 				<?php np_thumb( $np_lead, 'np-lead', '(max-width: 820px) calc(100vw - 32px), 744px', true, 'r-16x9 thumb-lg' ); ?>
 				<span class="lead-text">
 					<span class="tags">
-						<span class="badge badge-solid b"><?php esc_html_e( 'প্রধান খবর', 'narayanganj-press' ); ?></span>
+						<span class="badge badge-solid b"><?php esc_html_e( 'Top story', 'news-press' ); ?></span>
 						<?php $np_c = np_post_top_cat( $np_lead ); if ( $np_c ) : ?><span class="badge b"><?php echo esc_html( $np_c->name ); ?></span><?php endif; ?>
 					</span>
 					<h2 class="lead-title b"><?php echo esc_html( get_the_title( $np_lead ) ); ?></h2>
@@ -77,7 +77,7 @@ $np_local_list = $np_local ? $np_sec_posts( $np_loc_s, 4 ) : array();
 
 	<?php if ( $np_top ) : ?>
 	<section class="top" aria-labelledby="top-h">
-		<?php np_section_head( $np_top_s['title'], $np_top_s['cat'] ? get_category_link( $np_top_s['cat'] ) : home_url( '/?s=' ), 'সব খবর →', 'top-h' ); ?>
+		<?php np_section_head( $np_top_s['title'], $np_top_s['cat'] ? get_category_link( $np_top_s['cat'] ) : home_url( '/?s=' ), __( 'All news →', 'news-press' ), 'top-h' ); ?>
 		<div class="grid-4 cards-m-first">
 			<?php foreach ( $np_top as $np_p ) { np_card( $np_p ); } ?>
 		</div>
@@ -89,12 +89,12 @@ $np_local_list = $np_local ? $np_sec_posts( $np_loc_s, 4 ) : array();
 	<div class="row2">
 		<?php if ( $np_local && $np_local_list ) : ?>
 		<section class="local" aria-labelledby="local-h">
-			<?php np_section_head( $np_loc_s['title'], get_category_link( $np_local ), 'সব খবর →', 'local-h' ); ?>
+			<?php np_section_head( $np_loc_s['title'], get_category_link( $np_local ), __( 'All news →', 'news-press' ), 'local-h' ); ?>
 			<?php
 			$np_kids = get_categories( array( 'parent' => $np_local->term_id, 'hide_empty' => false, 'orderby' => 'term_id' ) );
 			if ( $np_kids ) :
 				?>
-				<ul class="pills pills-sm" aria-label="<?php esc_attr_e( 'উপজেলা', 'narayanganj-press' ); ?>">
+				<ul class="pills pills-sm" aria-label="<?php esc_attr_e( 'Sub-categories', 'news-press' ); ?>">
 					<?php foreach ( $np_kids as $np_i => $np_k ) : ?>
 						<li class="<?php echo 0 === $np_i ? 'current-menu-item' : ''; ?>"><a href="<?php echo esc_url( get_category_link( $np_k ) ); ?>"><?php echo esc_html( $np_k->name ); ?></a></li>
 					<?php endforeach; ?>
@@ -136,7 +136,7 @@ $np_local_list = $np_local ? $np_sec_posts( $np_loc_s, 4 ) : array();
 			$np_first = array_shift( $np_items );
 			?>
 			<section class="col" aria-labelledby="col-<?php echo esc_attr( $np_cat->term_id ); ?>">
-				<?php np_section_head( $np_sec['title'], get_category_link( $np_cat ), 'আরও →', 'col-' . $np_cat->term_id ); ?>
+				<?php np_section_head( $np_sec['title'], get_category_link( $np_cat ), __( 'More →', 'news-press' ), 'col-' . $np_cat->term_id ); ?>
 				<a class="col-first" href="<?php echo esc_url( get_permalink( $np_first ) ); ?>">
 					<?php np_thumb( $np_first, 'np-card', '(max-width: 820px) calc(100vw - 32px), 380px', false, 'r-16x9' ); ?>
 					<h3 class="col-title b"><?php echo esc_html( get_the_title( $np_first ) ); ?></h3>
@@ -161,7 +161,7 @@ if ( $np_vids ) :
 	?>
 <section class="video-band" aria-labelledby="video-h">
 	<div class="wrap">
-		<?php np_section_head( $np_vid_s['title'], get_category_link( $np_vcat ), 'সব ভিডিও →', 'video-h' ); ?>
+		<?php np_section_head( $np_vid_s['title'], get_category_link( $np_vcat ), __( 'All videos →', 'news-press' ), 'video-h' ); ?>
 		<div class="video-row">
 			<article class="video-main">
 				<a href="<?php echo esc_url( get_permalink( $np_v ) ); ?>">

@@ -2,7 +2,7 @@
 /**
  * Fallback template (also the blog index when a static front page is set).
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ get_header();
 <main id="main" class="wrap">
 	<header class="page-head">
 		<?php np_breadcrumbs(); ?>
-		<h1 class="page-title b"><?php echo is_home() && get_option( 'page_for_posts' ) ? esc_html( get_the_title( get_option( 'page_for_posts' ) ) ) : esc_html__( 'সর্বশেষ খবর', 'narayanganj-press' ); ?></h1>
+		<h1 class="page-title b"><?php echo is_home() && get_option( 'page_for_posts' ) ? esc_html( get_the_title( get_option( 'page_for_posts' ) ) ) : esc_html__( 'Latest news', 'news-press' ); ?></h1>
 	</header>
 	<?php get_template_part( 'template-parts/listing' ); ?>
 </main>

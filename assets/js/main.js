@@ -1,4 +1,4 @@
-/* Narayanganj Press — the only script (deferred, no dependencies).
+/* News Press — the only script (deferred, no dependencies).
    1. Header toggles (mobile search / menu drawer)  2. Copy link + Messenger fallback  3. View beacon. */
 (function () {
 	'use strict';

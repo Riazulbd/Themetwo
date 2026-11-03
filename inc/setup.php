@@ -2,7 +2,7 @@
 /**
  * Theme supports, menus, image sizes and widget areas.
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 if ( ! function_exists( 'np_setup' ) ) {
 	/** Register theme features. */
 	function np_setup() {
-		load_theme_textdomain( 'narayanganj-press', NP_DIR . '/languages' );
+		load_theme_textdomain( 'news-press', NP_DIR . '/languages' );
 
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'post-thumbnails' );
@@ -37,9 +37,9 @@ if ( ! function_exists( 'np_setup' ) ) {
 		add_image_size( 'np-thumb', 240, 160, true );   // 3:2 compact rows.
 
 		register_nav_menus( array(
-			'primary'      => __( 'Category navigation (pills)', 'narayanganj-press' ),
-			'footer-1'     => __( 'Footer column 1 (বিভাগ)', 'narayanganj-press' ),
-			'footer-2'     => __( 'Footer column 2 (উপজেলা)', 'narayanganj-press' ),
+			'primary'      => __( 'Category navigation (pills)', 'news-press' ),
+			'footer-1'     => __( 'Footer column 1', 'news-press' ),
+			'footer-2'     => __( 'Footer column 2', 'news-press' ),
 		) );
 	}
 }
@@ -60,11 +60,11 @@ function np_widgets_init() {
 		'after_title'   => '</h2>',
 	);
 	$areas = array(
-		'ad-header'        => array( __( 'Ad: below header (728×90)', 'narayanganj-press' ), __( 'Shown under the header on home and archives.', 'narayanganj-press' ) ),
-		'ad-home'          => array( __( 'Ad: home between sections (728×90)', 'narayanganj-press' ), __( 'Between the top-news grid and the Narayanganj section.', 'narayanganj-press' ) ),
-		'ad-single-inline' => array( __( 'Ad: in article (after 3rd paragraph)', 'narayanganj-press' ), __( '728×90 on desktop, 300×250 on mobile.', 'narayanganj-press' ) ),
-		'ad-sidebar'       => array( __( 'Ad: sidebar (300×250)', 'narayanganj-press' ), __( 'Bottom of the article sidebar.', 'narayanganj-press' ) ),
-		'sidebar-extra'    => array( __( 'Sidebar: extra widgets', 'narayanganj-press' ), __( 'Added below "latest news" in the article sidebar.', 'narayanganj-press' ) ),
+		'ad-header'        => array( __( 'Ad: below header (728×90)', 'news-press' ), __( 'Shown under the header on home and archives.', 'news-press' ) ),
+		'ad-home'          => array( __( 'Ad: home between sections (728×90)', 'news-press' ), __( 'Between the top-stories grid and the featured section.', 'news-press' ) ),
+		'ad-single-inline' => array( __( 'Ad: in article (after 3rd paragraph)', 'news-press' ), __( '728×90 on desktop, 300×250 on mobile.', 'news-press' ) ),
+		'ad-sidebar'       => array( __( 'Ad: sidebar (300×250)', 'news-press' ), __( 'Bottom of the article sidebar.', 'news-press' ) ),
+		'sidebar-extra'    => array( __( 'Sidebar: extra widgets', 'news-press' ), __( 'Added below "latest news" in the article sidebar.', 'news-press' ) ),
 	);
 	foreach ( $areas as $id => $a ) {
 		register_sidebar( array_merge( $common, array( 'id' => $id, 'name' => $a[0], 'description' => $a[1] ) ) );
@@ -81,7 +81,7 @@ function np_content_image_sizes( $sizes, $size ) {
 }
 add_filter( 'wp_calculate_image_sizes', 'np_content_image_sizes', 10, 2 );
 
-/** Remove author archives entirely: there is no author UI on this site. */
+/** Remove author archives entirely: this theme shows no author UI. */
 function np_redirect_author_archives() {
 	if ( is_author() ) {
 		wp_safe_redirect( home_url( '/' ), 301 );
@@ -105,7 +105,7 @@ add_filter( 'oembed_response_data', function ( $data ) {
 	return $data;
 } );
 
-/** Bangla excerpt "more" and length. */
+/** Excerpt "more" and length. */
 add_filter( 'excerpt_more', function () {
 	return '…';
 } );

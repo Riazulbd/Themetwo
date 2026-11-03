@@ -1,12 +1,14 @@
 <?php
 /**
- * Bangla helpers: digits, Gregorian dates in Bangla, Bangla calendar (Bangabda)
- * dates and relative "x minutes ago" strings.
+ * Date helpers. When Bangla mode is on (np_is_bangla(): Theme Panel → General, or
+ * automatically when the site language is Bangla) they output Bangla digits, month
+ * names, the Bangla calendar (Bangabda) and Bangla relative times. Otherwise they
+ * use the site's own WordPress date and time format.
  *
  * All functions are pluggable (wrapped in function_exists) so a child theme
  * can replace them.
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -19,6 +21,9 @@ if ( ! function_exists( 'np_bn_digits' ) ) {
 	 * @return string
 	 */
 	function np_bn_digits( $text ) {
+		if ( ! np_is_bangla() ) {
+			return (string) $text;
+		}
 		return strtr( (string) $text, array(
 			'0' => '০', '1' => '১', '2' => '২', '3' => '৩', '4' => '৪',
 			'5' => '৫', '6' => '৬', '7' => '৭', '8' => '৮', '9' => '৯',
@@ -73,7 +78,15 @@ if ( ! function_exists( 'np_bn_date' ) ) {
 	 * @return string
 	 */
 	function np_bn_date( $when = null, $with_weekday = false, $with_time = false ) {
-		$d      = np_to_datetime( $when );
+		$d = np_to_datetime( $when );
+		if ( ! np_is_bangla() ) {
+			$fmt = get_option( 'date_format' );
+			$out = wp_date( $with_weekday ? 'l, ' . $fmt : $fmt, $d->getTimestamp() );
+			if ( $with_time ) {
+				$out .= ', ' . np_bn_time( $d );
+			}
+			return apply_filters( 'np_bn_date', $out, $d, $with_weekday, $with_time );
+		}
 		$months = np_bn_months();
 		$out    = np_bn_digits( $d->format( 'j' ) ) . ' ' . $months[ (int) $d->format( 'n' ) ] . ' ' . np_bn_digits( $d->format( 'Y' ) );
 		if ( $with_weekday ) {
@@ -90,7 +103,11 @@ if ( ! function_exists( 'np_bn_date' ) ) {
 if ( ! function_exists( 'np_bn_time' ) ) {
 	/** 24-hour time in Bangla digits, e.g. "১০:৩০". */
 	function np_bn_time( $when = null ) {
-		return np_bn_digits( np_to_datetime( $when )->format( 'H:i' ) );
+		$d = np_to_datetime( $when );
+		if ( ! np_is_bangla() ) {
+			return wp_date( get_option( 'time_format' ), $d->getTimestamp() );
+		}
+		return np_bn_digits( $d->format( 'H:i' ) );
 	}
 }
 
@@ -153,6 +170,17 @@ if ( ! function_exists( 'np_bn_ago' ) ) {
 		if ( $diff < 0 ) {
 			$diff = 0;
 		}
+		if ( ! np_is_bangla() ) {
+			if ( $diff < MINUTE_IN_SECONDS ) {
+				$out = __( 'Just now', 'news-press' );
+			} elseif ( $diff < DAY_IN_SECONDS ) {
+				/* translators: %s: time span, e.g. "3 hours". */
+				$out = sprintf( __( '%s ago', 'news-press' ), human_time_diff( $ts ) );
+			} else {
+				$out = np_bn_date( $ts );
+			}
+			return apply_filters( 'np_bn_ago', $out, $post );
+		}
 		if ( $diff < MINUTE_IN_SECONDS ) {
 			$out = 'এইমাত্র';
 		} elseif ( $diff < HOUR_IN_SECONDS ) {
@@ -167,7 +195,7 @@ if ( ! function_exists( 'np_bn_ago' ) ) {
 }
 
 if ( ! function_exists( 'np_reading_minutes' ) ) {
-	/** Estimated reading time in minutes (Bangla prose ≈ 180 words/min). */
+	/** Estimated reading time in minutes (≈ 180 words/min). */
 	function np_reading_minutes( $post = null ) {
 		$text  = wp_strip_all_tags( (string) get_post_field( 'post_content', $post ) );
 		$words = count( preg_split( '/\s+/u', trim( $text ), -1, PREG_SPLIT_NO_EMPTY ) );

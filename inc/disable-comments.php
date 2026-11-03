@@ -3,7 +3,7 @@
  * Comments and pingbacks are disabled site-wide: front end, admin, feeds,
  * REST and XML-RPC. Filter `np_disable_comments` to false to turn this off.
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;

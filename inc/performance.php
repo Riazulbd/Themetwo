@@ -3,12 +3,12 @@
  * Front-end performance:
  * - main.css is inlined in <head> (≈ 6 KB gzipped): no render-blocking request.
  *   Filter `np_inline_css` to false to load it as a normal cached file instead.
- * - @font-face + preload of the WOFF2 (font-display: swap).
+ * - Bundled Bangla font (optional): @font-face + preload of the WOFF2 (font-display: swap).
  * - One small deferred script, no jQuery.
  * - Core bloat removed: emoji, block-library CSS on templates that don't need it,
  *   oEmbed discovery, RSD/WLW, generator.
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -18,9 +18,11 @@ function np_font_url( $ext = 'woff2' ) {
 	return apply_filters( 'np_font_url', NP_URI . '/assets/fonts/solaimanlipi.' . $ext, $ext );
 }
 
-/** Preload the font and the LCP image as early as possible. */
+/** Preload the font (when the bundled one is used) and the LCP image as early as possible. */
 function np_head_preloads() {
-	printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( np_font_url() ) );
+	if ( np_use_bangla_font() ) {
+		printf( '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n", esc_url( np_font_url() ) );
+	}
 
 	// LCP image: featured image on single, lead story on the front page.
 	$lcp = 0;
@@ -64,14 +66,17 @@ function np_styles() {
 	$file = NP_DIR . '/assets/css/main.css';
 	$ver  = NP_VERSION . '.' . ( file_exists( $file ) ? filemtime( $file ) : '0' );
 
-	$face = sprintf(
+	$face = '';
+	if ( np_use_bangla_font() ) {
+		$face = sprintf(
 		'@font-face{font-family:"SolaimanLipi";src:url("%1$s") format("woff2"),url("%2$s") format("woff"),url("%3$s") format("truetype");font-weight:400;font-style:normal;font-display:swap}'
 		/* Metric-matched local fallback shown until the web font arrives, so line breaks barely move on swap (CLS). */
 		. '@font-face{font-family:"NP Fallback";src:local("Nirmala UI"),local("Noto Sans Bengali"),local("NotoSansBengali-Regular"),local("Vrinda");size-adjust:89%%}',
 		esc_url( np_font_url( 'woff2' ) ),
 		esc_url( np_font_url( 'woff' ) ),
 		esc_url( np_font_url( 'ttf' ) )
-	);
+		);
+	}
 
 	if ( apply_filters( 'np_inline_css', true ) && is_readable( $file ) ) {
 		wp_register_style( 'np-main', false, array(), $ver );
@@ -79,7 +84,9 @@ function np_styles() {
 		wp_add_inline_style( 'np-main', $face . file_get_contents( $file ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 	} else {
 		wp_enqueue_style( 'np-main', NP_URI . '/assets/css/main.css', array(), $ver );
-		wp_add_inline_style( 'np-main', $face );
+		if ( $face ) {
+			wp_add_inline_style( 'np-main', $face );
+		}
 	}
 	// Theme Panel colour overrides (only values that differ from the defaults).
 	$colours = np_colour_css();
@@ -110,8 +117,8 @@ function np_scripts() {
 		'in_footer' => true,
 	) );
 	$data = array(
-		'copied' => 'লিংক কপি হয়েছে',
-		'failed' => 'কপি করা যায়নি',
+		'copied' => __( 'Link copied', 'news-press' ),
+		'failed' => __( 'Copy failed', 'news-press' ),
 	);
 	if ( is_singular( 'post' ) && np_views_enabled() ) {
 		$data['view'] = esc_url_raw( rest_url( 'np/v1/view' ) );
@@ -147,5 +154,29 @@ add_action( 'wp_footer', function () {
 
 /** Theme colour for mobile browser chrome. */
 add_action( 'wp_head', function () {
-	echo '<meta name="theme-color" content="#01284F">' . "\n";
+	echo '<meta name="theme-color" content="' . esc_attr( np_theme_colour() ) . '">' . "\n";
 }, 2 );
+
+/** `np-sys` on <body> switches the stylesheet to the system font with real bold. */
+add_filter( 'body_class', function ( $classes ) {
+	if ( ! np_use_bangla_font() ) {
+		$classes[] = 'np-sys';
+	}
+	return $classes;
+} );
+
+/** Block editor: use the bundled Bangla font only when the front end does. */
+add_filter( 'block_editor_settings_all', function ( $settings ) {
+	if ( np_use_bangla_font() ) {
+		$settings['styles'][] = array(
+			'css' => sprintf(
+				'@font-face{font-family:"SolaimanLipi";src:url("%s") format("woff2"),url("%s") format("woff");font-weight:400;font-style:normal;font-display:swap}'
+				. 'body{font-family:"SolaimanLipi","Noto Sans Bengali",sans-serif}'
+				. 'h1,h2,h3,h4,h5,h6,strong,b{font-weight:400;-webkit-text-stroke:max(.55px,.04em) currentColor;paint-order:stroke fill}',
+				esc_url( np_font_url( 'woff2' ) ),
+				esc_url( np_font_url( 'woff' ) )
+			),
+		);
+	}
+	return $settings;
+} );

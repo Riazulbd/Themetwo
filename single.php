@@ -2,7 +2,7 @@
 /**
  * Single post. No author box, byline or bio and no comments, by design.
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -63,7 +63,7 @@ while ( have_posts() ) :
 			if ( $np_tags ) :
 				?>
 				<div class="post-tags">
-					<span class="b"><?php esc_html_e( 'ট্যাগ:', 'narayanganj-press' ); ?></span>
+					<span class="b"><?php esc_html_e( 'Tags:', 'news-press' ); ?></span>
 					<ul class="pills pills-sm">
 						<?php foreach ( $np_tags as $np_t ) : ?>
 							<li><a href="<?php echo esc_url( get_tag_link( $np_t ) ); ?>" rel="tag"><?php echo esc_html( $np_t->name ); ?></a></li>
@@ -73,7 +73,7 @@ while ( have_posts() ) :
 			<?php endif; ?>
 
 			<div class="share-box">
-				<p class="share-box-title b"><?php esc_html_e( 'খবরটি ভালো লাগলে শেয়ার করুন', 'narayanganj-press' ); ?></p>
+				<p class="share-box-title b"><?php esc_html_e( 'Enjoyed this story? Share it', 'news-press' ); ?></p>
 				<?php np_share_row(); ?>
 			</div>
 
@@ -82,12 +82,12 @@ while ( have_posts() ) :
 			$np_next = get_next_post();
 			if ( $np_prev || $np_next ) :
 				?>
-				<nav class="post-nav" aria-label="<?php esc_attr_e( 'আগের ও পরের খবর', 'narayanganj-press' ); ?>">
+				<nav class="post-nav" aria-label="<?php esc_attr_e( 'Previous and next stories', 'news-press' ); ?>">
 					<?php if ( $np_prev ) : ?>
-						<a class="pn pn-prev" href="<?php echo esc_url( get_permalink( $np_prev ) ); ?>" rel="prev"><span class="pn-k b">← <?php esc_html_e( 'আগের খবর', 'narayanganj-press' ); ?></span><span class="pn-t b"><?php echo esc_html( get_the_title( $np_prev ) ); ?></span></a>
+						<a class="pn pn-prev" href="<?php echo esc_url( get_permalink( $np_prev ) ); ?>" rel="prev"><span class="pn-k b">← <?php esc_html_e( 'Previous story', 'news-press' ); ?></span><span class="pn-t b"><?php echo esc_html( get_the_title( $np_prev ) ); ?></span></a>
 					<?php endif; ?>
 					<?php if ( $np_next ) : ?>
-						<a class="pn pn-next" href="<?php echo esc_url( get_permalink( $np_next ) ); ?>" rel="next"><span class="pn-k b"><?php esc_html_e( 'পরের খবর', 'narayanganj-press' ); ?> →</span><span class="pn-t b"><?php echo esc_html( get_the_title( $np_next ) ); ?></span></a>
+						<a class="pn pn-next" href="<?php echo esc_url( get_permalink( $np_next ) ); ?>" rel="next"><span class="pn-k b"><?php esc_html_e( 'Next story', 'news-press' ); ?> →</span><span class="pn-t b"><?php echo esc_html( get_the_title( $np_next ) ); ?></span></a>
 					<?php endif; ?>
 				</nav>
 			<?php endif; ?>
@@ -109,7 +109,7 @@ while ( have_posts() ) :
 		$np_more = $np_top_cat ? get_category_link( $np_top_cat ) : '';
 		?>
 		<section class="related" aria-labelledby="rel-h">
-			<?php np_section_head( 'সম্পর্কিত খবর', $np_more, 'আরও →', 'rel-h' ); ?>
+			<?php np_section_head( __( 'Related stories', 'news-press' ), $np_more, __( 'More →', 'news-press' ), 'rel-h' ); ?>
 			<div class="grid-4 cards-m-compact">
 				<?php foreach ( $np_related as $np_p ) { np_card( $np_p ); } ?>
 			</div>

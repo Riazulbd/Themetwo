@@ -1,4 +1,4 @@
-/* Narayanganj Press — main stylesheet (mobile first).
+/* News Press — main stylesheet (mobile first).
    Breakpoints: 640 share pills · 768 tablet/footer · 1024 desktop header · 1100 two-column layouts.
    Inlined in <head> by inc/performance.php. Keep it lean. */
 
@@ -40,6 +40,11 @@ button,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:4px}
 /* SolaimanLipi ships one weight: "bold" is a same-colour hairline stroke painted behind the fill. */
 .b,h1,h2,h3,h4,h5,h6,strong,b{font-weight:400;-webkit-text-stroke:var(--stroke) currentColor;paint-order:stroke fill}
+/* System-font mode (<body class="np-sys">): real bold instead of the stroke trick. */
+.np-sys{--font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Noto Sans Bengali",sans-serif;--stroke:0px}
+.np-sys .b,.np-sys h1,.np-sys h2,.np-sys h3,.np-sys h4,.np-sys h5,.np-sys h6,.np-sys strong,.np-sys b{font-weight:700;-webkit-text-stroke:0}
+.np-sys .pills .current-menu-item>a,.np-sys .pills .current-post-ancestor>a,.np-sys .pills .current-menu-parent>a,.np-sys .pills .current-category-ancestor>a,.np-sys .entry blockquote p{font-weight:700;-webkit-text-stroke:0}
+.np-sys{font-synthesis:weight style}
 .screen-reader-text{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .skip-link{position:absolute;left:16px;top:-100px;z-index:100;background:var(--brand);color:#fff;padding:10px 18px;border-radius:var(--pill)}
 .skip-link:focus{top:12px}

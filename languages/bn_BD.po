@@ -1,0 +1,236 @@
+# Bangla (Bangladesh) translation for News Press.
+msgid ""
+msgstr ""
+"Project-Id-Version: News Press 1.0.0\n"
+"PO-Revision-Date: 2026-11-03 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bn_BD\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Page not found"
+msgstr "পাতাটি খুঁজে পাওয়া যায়নি"
+
+msgid "The link may be wrong or the page has been moved. Try searching below or go back to the home page."
+msgstr "লিংকটি ভুল অথবা খবরটি সরিয়ে নেওয়া হয়েছে। নিচে খুঁজে দেখুন অথবা প্রচ্ছদে ফিরে যান।"
+
+msgid "Back to home"
+msgstr "প্রচ্ছদে ফিরুন"
+
+msgid "Latest news"
+msgstr "সর্বশেষ খবর"
+
+msgid "Contact:"
+msgstr "যোগাযোগ:"
+
+msgid "Your email"
+msgstr "আপনার ইমেইল"
+
+msgid "Subscribe"
+msgstr "সাবস্ক্রাইব"
+
+msgid "Categories"
+msgstr "বিভাগ"
+
+msgid "Footer"
+msgstr "ফুটার"
+
+msgid "© %1$s %2$s. All rights reserved."
+msgstr "© %1$s %2$s। সর্বস্বত্ব সংরক্ষিত।"
+
+msgid "Office:"
+msgstr "কার্যালয়:"
+
+msgid "Phone:"
+msgstr "ফোন:"
+
+msgid "Email:"
+msgstr "ই-মেইল:"
+
+msgid "Copyright © %1$s %2$s"
+msgstr "স্বত্ব © %1$s %2$s"
+
+msgid "Top story"
+msgstr "প্রধান খবর"
+
+msgid "All news →"
+msgstr "সব খবর →"
+
+msgid "Sub-categories"
+msgstr "উপবিভাগ"
+
+msgid "More →"
+msgstr "আরও →"
+
+msgid "All videos →"
+msgstr "সব ভিডিও →"
+
+msgid "Skip to content"
+msgstr "মূল খবরে যান"
+
+msgid "Search news"
+msgstr "খবর খুঁজুন"
+
+msgid "Search news…"
+msgstr "খবর খুঁজুন…"
+
+msgid "Search"
+msgstr "খুঁজুন"
+
+msgid "Menu"
+msgstr "মেনু"
+
+msgid "All categories"
+msgstr "সব বিভাগ"
+
+msgid "Just now"
+msgstr "এইমাত্র"
+
+msgid "%s ago"
+msgstr "%s আগে"
+
+msgid "Latest"
+msgstr "সর্বশেষ"
+
+msgid "Top stories"
+msgstr "শীর্ষ সংবাদ"
+
+msgid "Most read"
+msgstr "সর্বাধিক পঠিত"
+
+msgid "Editor & Publisher"
+msgstr "সম্পাদক ও প্রকাশক"
+
+msgid "Newsroom"
+msgstr "বার্তা বিভাগ"
+
+msgid "Advertising"
+msgstr "বিজ্ঞাপন"
+
+msgid "General enquiries"
+msgstr "সাধারণ যোগাযোগ"
+
+msgid "Breaking"
+msgstr "ব্রেকিং"
+
+msgid "Breaking news"
+msgstr "ব্রেকিং নিউজ"
+
+msgid "Follow us on Facebook"
+msgstr "ফেসবুকে আমরা"
+
+msgid "Link copied"
+msgstr "লিংক কপি হয়েছে"
+
+msgid "Copy failed"
+msgstr "কপি করা যায়নি"
+
+msgid "Image"
+msgstr "ছবি"
+
+msgid "Published:"
+msgstr "প্রকাশ:"
+
+msgid "Updated:"
+msgstr "আপডেট:"
+
+msgid "%s min read"
+msgstr "পড়তে লাগবে %s মিনিট"
+
+msgid "Facebook"
+msgstr "ফেসবুক"
+
+msgid "WhatsApp"
+msgstr "হোয়াটসঅ্যাপ"
+
+msgid "Messenger"
+msgstr "মেসেঞ্জার"
+
+msgid "Share on Facebook"
+msgstr "ফেসবুকে শেয়ার করুন"
+
+msgid "Share on WhatsApp"
+msgstr "হোয়াটসঅ্যাপে শেয়ার করুন"
+
+msgid "Share on Messenger"
+msgstr "মেসেঞ্জারে শেয়ার করুন"
+
+msgid "Share:"
+msgstr "শেয়ার করুন:"
+
+msgid "Copy the link"
+msgstr "লিংক কপি করুন"
+
+msgid "Copy link"
+msgstr "লিংক কপি"
+
+msgid "Breadcrumb"
+msgstr "ব্রেডক্রাম্ব"
+
+msgid "Home"
+msgstr "প্রচ্ছদ"
+
+msgid "Search results"
+msgstr "অনুসন্ধান"
+
+msgid "Archive"
+msgstr "আর্কাইভ"
+
+msgid "Advertisement"
+msgstr "বিজ্ঞাপন"
+
+msgid "Today"
+msgstr "আজ"
+
+msgid "%s on Facebook"
+msgstr "ফেসবুকে %s"
+
+msgid "%1$s on %2$s"
+msgstr "%2$s-এ %1$s"
+
+msgid "Results for \"%s\""
+msgstr "\"%s\" এর ফলাফল"
+
+msgid "All news"
+msgstr "সব খবর"
+
+msgid "Sidebar"
+msgstr "পার্শ্ববর্তী খবর"
+
+msgid "Tags:"
+msgstr "ট্যাগ:"
+
+msgid "Enjoyed this story? Share it"
+msgstr "খবরটি ভালো লাগলে শেয়ার করুন"
+
+msgid "Previous and next stories"
+msgstr "আগের ও পরের খবর"
+
+msgid "Previous story"
+msgstr "আগের খবর"
+
+msgid "Next story"
+msgstr "পরের খবর"
+
+msgid "Related stories"
+msgstr "সম্পর্কিত খবর"
+
+msgid "← Previous"
+msgstr "← আগের"
+
+msgid "Next →"
+msgstr "পরের →"
+
+msgid "Pagination"
+msgstr "পাতা"
+
+msgid "Sorry, nothing was found."
+msgstr "দুঃখিত, কোনো খবর পাওয়া যায়নি।"
+
+msgid "%s result found"
+msgid_plural "%s results found"
+msgstr[0] "%s টি খবর পাওয়া গেছে"
+msgstr[1] "%s টি খবর পাওয়া গেছে"

@@ -1,9 +1,8 @@
 <?php
 /**
- * Category, tag and date archives. Child categories (e.g. upazilas under
- * নারায়ণগঞ্জ) appear as pills under the title.
+ * Category, tag and date archives. Child categories appear as pills under the title.
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;

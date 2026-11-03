@@ -1,0 +1,16 @@
+/* Theme Panel (admin). */
+.np-panel .np-ver{font-size:13px;font-weight:400;color:#646970;margin-left:8px}
+.np-panel .np-tabs{margin:16px 0 0}
+.np-panel .np-tab{background:#fff;border:1px solid #c3c4c7;border-top:0;padding:4px 20px 20px;max-width:960px}
+.np-panel .np-tab[hidden]{display:none}
+.np-panel .np-tab>h2{margin:28px 0 6px;padding-bottom:8px;border-bottom:1px solid #dcdcde;font-size:16px}
+.np-panel .np-tab>h2:first-child{margin-top:16px}
+.np-panel .np-lead{margin:8px 0 0;color:#50575e;max-width:70ch}
+.np-panel .form-table th{width:240px;padding-top:14px;padding-bottom:14px}
+.np-panel .form-table td{padding-top:10px;padding-bottom:10px}
+.np-panel .np-img-preview{margin-bottom:8px}
+.np-panel .np-img-preview img{display:block;max-width:240px;height:auto;padding:8px;border:1px solid #c3c4c7;border-radius:4px;background:repeating-conic-gradient(#f0f0f1 0 25%,#fff 0 50%) 0 0/16px 16px}
+.np-panel .np-img-remove{color:#b32d2e;margin-left:8px}
+.np-panel .np-img-remove[hidden]{display:none}
+.np-panel .np-submit{display:flex;gap:12px;align-items:center;max-width:960px}
+.np-panel .np-submit .button.delete{margin-left:auto;color:#b32d2e;border-color:#b32d2e}

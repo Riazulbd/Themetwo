@@ -9,7 +9,7 @@
  *
  * Disable with: add_filter( 'np_enable_view_counter', '__return_false' );
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;

@@ -2,7 +2,7 @@
 /**
  * Static page (about, contact, policies). Single readable column.
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;

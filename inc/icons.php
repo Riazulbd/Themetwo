@@ -3,7 +3,7 @@
  * Inline SVG icons (hand-drawn 18×18 glyphs from the design file). Inline SVG
  * means zero extra requests and no icon font.
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;

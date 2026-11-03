@@ -4,12 +4,12 @@
  * latest news, optional widgets, 300×250 ad. On phones only the most-read card
  * and the Facebook box are shown.
  *
- * @package Narayanganj_Press
+ * @package News_Press
  */
 
 defined( 'ABSPATH' ) || exit;
 ?>
-<aside class="sidebar" aria-label="<?php esc_attr_e( 'পার্শ্ববর্তী খবর', 'narayanganj-press' ); ?>">
+<aside class="sidebar" aria-label="<?php esc_attr_e( 'Sidebar', 'news-press' ); ?>">
 	<?php np_most_read( 5 ); ?>
 	<?php np_fb_page_box(); ?>
 	<div class="d-only sidebar-rest">
@@ -17,6 +17,6 @@ defined( 'ABSPATH' ) || exit;
 		<?php if ( is_active_sidebar( 'sidebar-extra' ) ) : ?>
 			<div class="box"><?php dynamic_sidebar( 'sidebar-extra' ); ?></div>
 		<?php endif; ?>
-		<?php np_ad( 'ad-sidebar', 'ad-rect', '৩০০×২৫০' ); ?>
+		<?php np_ad( 'ad-sidebar', 'ad-rect', '300×250' ); ?>
 	</div>
 </aside>
