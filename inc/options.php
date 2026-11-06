@@ -57,18 +57,27 @@ function np_home_sections() {
 }
 
 /**
- * Colour settings: key => [label, CSS custom property, default].
+ * Colours that are the same in light and dark mode: key => [label, CSS custom property, default].
  *
  * @return array<string,array{0:string,1:string,2:string}>
  */
 function np_colour_settings() {
 	return array(
-		'color_brand'       => array( __( 'Accent colour (buttons, badges, links)', 'khobor-press' ), '--brand', '#B30F0F' ),
-		'color_navy'        => array( __( 'Dark colour (most-read card, quotes)', 'khobor-press' ), '--brand-dark', '#01284F' ),
-		'color_topbar'      => array( __( 'Top bar background', 'khobor-press' ), '--topbar-bg', '#01284F' ),
-		'color_topbar_text' => array( __( 'Top bar text', 'khobor-press' ), '--topbar-text', '#FFFFFF' ),
-		'color_footer'      => array( __( 'Footer background', 'khobor-press' ), '--footer-bg', '#01284F' ),
-		'color_footer_text' => array( __( 'Footer text', 'khobor-press' ), '--footer-text', '#FFFFFF' ),
+		'color_brand' => array( __( 'Accent colour (buttons, badges, links)', 'khobor-press' ), '--brand', '#B30F0F' ),
+		'color_navy'  => array( __( 'Dark colour (most-read card, quotes)', 'khobor-press' ), '--brand-dark', '#01284F' ),
+	);
+}
+
+/**
+ * Bars that have their own colours for light and dark mode: slug => [label, CSS variable prefix,
+ * default background in light mode, default background in dark mode].
+ *
+ * @return array<string,array{0:string,1:string,2:string,3:string}>
+ */
+function np_surface_settings() {
+	return array(
+		'topbar' => array( __( 'Top bar', 'khobor-press' ), '--topbar', '#01284F', '#0A1A33' ),
+		'footer' => array( __( 'Footer', 'khobor-press' ), '--footer', '#01284F', '#0A1A33' ),
 	);
 }
 
@@ -155,12 +164,23 @@ function np_panel_tabs() {
 
 	/* Colours. */
 	$colours = array(
-		'h_header' => array( 'type' => 'heading', 'label' => __( 'Header', 'khobor-press' ), 'desc' => __( 'Pick a header colour that matches your logo, for example when the logo has a solid background instead of a transparent one. Leave blank for the default look.', 'khobor-press' ) ),
+		'h_header' => array( 'type' => 'heading', 'label' => __( 'Header', 'khobor-press' ), 'desc' => __( 'Pick a header colour that matches your logo, for example when the logo has a solid background instead of a transparent one. Leave blank for the default look. Text colour left blank is chosen automatically so it is always readable.', 'khobor-press' ) ),
 	);
 	foreach ( np_header_colour_settings() as $key => $label ) {
 		$colours[ $key ] = array( 'type' => 'color', 'label' => $label, 'default' => '', 'blank' => true );
 	}
-	$colours['h_site'] = array( 'type' => 'heading', 'label' => __( 'Site colours', 'khobor-press' ) );
+	foreach ( np_surface_settings() as $slug => $sf ) {
+		$colours[ 'h_' . $slug ] = array(
+			'type'  => 'heading',
+			'label' => $sf[0],
+			'desc'  => __( 'Light and dark mode each have their own colours. Blank = the default look; text left blank is chosen automatically so it is always readable on the background.', 'khobor-press' ),
+		);
+		$colours[ 'color_' . $slug ]                  = array( 'type' => 'color', 'label' => __( 'Background (light mode)', 'khobor-press' ), 'default' => '', 'blank' => true );
+		$colours[ 'color_' . $slug . '_text' ]        = array( 'type' => 'color', 'label' => __( 'Text (light mode)', 'khobor-press' ), 'default' => '', 'blank' => true );
+		$colours[ 'color_' . $slug . '_dark' ]        = array( 'type' => 'color', 'label' => __( 'Background (dark mode)', 'khobor-press' ), 'default' => '', 'blank' => true );
+		$colours[ 'color_' . $slug . '_text_dark' ]   = array( 'type' => 'color', 'label' => __( 'Text (dark mode)', 'khobor-press' ), 'default' => '', 'blank' => true );
+	}
+	$colours['h_site'] = array( 'type' => 'heading', 'label' => __( 'Accent colours', 'khobor-press' ) );
 	foreach ( np_colour_settings() as $key => $c ) {
 		$colours[ $key ] = array( 'type' => 'color', 'label' => $c[0], 'default' => $c[2] );
 	}
@@ -516,6 +536,42 @@ function np_build_auto_sections() {
 	return $ids;
 }
 
+/** Relative luminance of a #rrggbb colour (0 = black, 1 = white). */
+function np_luminance( $hex ) {
+	$hex = ltrim( (string) $hex, '#' );
+	if ( 3 === strlen( $hex ) ) {
+		$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+	}
+	$l = array();
+	foreach ( str_split( str_pad( $hex, 6, '0' ), 2 ) as $pair ) {
+		$v   = hexdec( $pair ) / 255;
+		$l[] = $v <= 0.03928 ? $v / 12.92 : pow( ( $v + 0.055 ) / 1.055, 2.4 );
+	}
+	return 0.2126 * $l[0] + 0.7152 * $l[1] + 0.0722 * $l[2];
+}
+
+/** WCAG contrast ratio between two #rrggbb colours (1 to 21). */
+function np_contrast( $a, $b ) {
+	$la = np_luminance( $a );
+	$lb = np_luminance( $b );
+	return ( max( $la, $lb ) + 0.05 ) / ( min( $la, $lb ) + 0.05 );
+}
+
+/**
+ * A text colour that is readable on a background: the wanted colour when it has enough contrast
+ * (4.5:1), otherwise white or near-black, whichever reads better.
+ *
+ * @param string $bg   Background, #rrggbb.
+ * @param string $want Wanted text colour, #rrggbb or ''.
+ * @return string
+ */
+function np_readable_text( $bg, $want = '' ) {
+	if ( $want && np_contrast( $bg, $want ) >= 4.5 ) {
+		return $want;
+	}
+	return np_contrast( $bg, '#FFFFFF' ) >= np_contrast( $bg, '#111827' ) ? '#FFFFFF' : '#111827';
+}
+
 /** Colour overrides as CSS variables, printed after the main stylesheet (only changed values). */
 function np_colour_css() {
 	$css = '';
@@ -527,27 +583,34 @@ function np_colour_css() {
 	}
 	$out = $css ? ':root,:root[data-theme=dark]{' . $css . '}' : '';
 
-	// Header colours, separate for light and dark mode (blank = default look).
-	$light = '';
-	$dark  = '';
-	$pairs = array(
-		'color_header'           => array( '--head-bg', 'light' ),
-		'color_header_text'      => array( '--head-text', 'light' ),
-		'color_header_dark'      => array( '--head-bg', 'dark' ),
-		'color_header_text_dark' => array( '--head-text', 'dark' ),
+	// Header, top bar and footer: separate colours for light and dark mode. A background without a text
+	// colour gets an automatic readable one, and a text colour that is hard to read is replaced.
+	$modes = array(
+		'light' => array( ':root:not([data-theme=dark])', '', 'light' ),
+		'dark'  => array( ':root[data-theme=dark]', '_dark', 'dark' ),
 	);
-	foreach ( $pairs as $key => $p ) {
-		$v = sanitize_hex_color( np_opt( $key ) );
-		if ( $v ) {
-			if ( 'light' === $p[1] ) {
-				$light .= $p[0] . ':' . $v . ';';
-			} else {
-				$dark .= $p[0] . ':' . $v . ';';
-			}
-		}
+	$bars  = array(
+		array( 'color_header', 'color_header_text', '--head-bg', '--head-text', '#F6F7F9', '#161E2E' ),
+	);
+	foreach ( np_surface_settings() as $slug => $sf ) {
+		$bars[] = array( 'color_' . $slug, 'color_' . $slug . '_text', $sf[1] . '-bg', $sf[1] . '-text', $sf[2], $sf[3] );
 	}
-	$out .= $light ? ':root{' . $light . '}' : '';
-	$out .= $dark ? ':root[data-theme=dark]{' . $dark . '}' : '';
+	foreach ( $modes as $m ) {
+		$decl = '';
+		foreach ( $bars as $bar ) {
+			$bg   = sanitize_hex_color( np_opt( $bar[0] . $m[1] ) );
+			$fg   = sanitize_hex_color( np_opt( 'dark' === $m[2] ? $bar[1] . '_dark' : $bar[1] ) );
+			if ( ! $bg && ! $fg ) {
+				continue;
+			}
+			if ( $bg ) {
+				$decl .= $bar[2] . ':' . $bg . ';';
+			}
+			$decl .= $bar[3] . ':' . np_readable_text( $bg ? $bg : ( 'dark' === $m[2] ? $bar[5] : $bar[4] ), $fg ? $fg : '' ) . ';';
+		}
+		// Header text is only set when something was chosen, so a header with no choices keeps the default look.
+		$out .= $decl ? $m[0] . '{' . $decl . '}' : '';
+	}
 	return $out;
 }
 

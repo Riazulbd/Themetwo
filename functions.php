@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NP_VERSION', '1.2.1' );
+define( 'NP_VERSION', '1.2.2' );
 define( 'NP_DIR', get_template_directory() );
 define( 'NP_URI', get_template_directory_uri() );
 

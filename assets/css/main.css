@@ -357,7 +357,7 @@ button,input{font:inherit;color:inherit}
 @media (min-width:768px){.page-title{font-size:32px}.page-head{padding-top:40px}}
 
 /* ---------- footer ---------- */
-.site-footer{--on-dark:var(--footer-text);--dark-line:rgba(255,255,255,.1);background:var(--footer-bg);color:var(--on-dark)}
+.site-footer{--on-dark:var(--footer-text);--on-dark-muted:color-mix(in srgb,var(--footer-text) 72%,transparent);--dark-line:color-mix(in srgb,var(--footer-text) 16%,transparent);background:var(--footer-bg);color:var(--on-dark)}
 .site-footer a:hover{color:var(--on-dark);text-decoration:underline}
 .logo-footer{font-size:26px}
 .logo-footer .logo-img{max-height:64px}

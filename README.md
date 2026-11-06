@@ -19,7 +19,7 @@ A top-level admin screen (capability `edit_theme_options`) with one tab per grou
 | Tab | Settings |
 |---|---|
 | General | Header and footer logo (the header falls back to Site Identity's logo, then a text wordmark), tagline. Interface language (Bengali by default, or follow the site language). Bangla digits/dates/calendar. Light/dark mode default, switch times and the header switch. Top bar on/off. Font: automatic, bundled Bangla font or system font. |
-| Colours | **Header** background and text, separately for light and dark mode (so a logo with a solid background never clashes). Accent, dark, top bar and footer colours. |
+| Colours | **Header, top bar and footer**: background and text, separately for light and dark mode. Text left blank is chosen automatically, and a text colour that would be hard to read on its background is replaced, so no colour choice can make it unreadable. Accent and dark colours (same in both modes). |
 | Footer & contact | Footer description, copyright holder (blank = site name), editor label and name, published-from line, office address, and three contact blocks (heading, phone, email each). |
 | Social | Facebook, YouTube, WhatsApp, X, Instagram, TikTok, Google News: each has a Show switch and a link. |
 | Home page | Scrolling breaking ticker (on/off, label, headline count, tag). For Latest, Top stories, the featured section, columns 1–3 and the video band: pick a category and a title. Sections left on **Automatic** pick busy categories by themselves, so a fresh install needs no mapping. |
