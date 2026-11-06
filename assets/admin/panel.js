@@ -1,8 +1,8 @@
-/* Theme Panel: tabs, colour pickers, media picker, reset confirmation. */
+/* Theme Panel: sidebar tabs, colour pickers, media picker, reset confirmation, search, unsaved-changes badge. */
 (function ($) {
 	'use strict';
 
-	var $tabs = $('.np-tabs a'),
+	var $tabs = $('.np-nav a'),
 		$panels = $('.np-tab'),
 		KEY = 'npPanelTab';
 
@@ -11,7 +11,7 @@
 			id = $panels.first().attr('id');
 		}
 		$panels.attr('hidden', 'hidden').filter('#' + id).removeAttr('hidden');
-		$tabs.removeClass('nav-tab-active').filter('[href="#' + id + '"]').addClass('nav-tab-active');
+		$tabs.removeClass('is-active').filter('[href="#' + id + '"]').addClass('is-active');
 		try { sessionStorage.setItem(KEY, id); } catch (e) { /* storage blocked: fine */ }
 	}
 
@@ -66,4 +66,48 @@
 			e.preventDefault();
 		}
 	});
+})(jQuery);
+
+/* Search + unsaved-changes badge. */
+(function ($) {
+	'use strict';
+	var $form = $('#np-panel-form'),
+		$panels = $('.np-tab'),
+		$rows = $('.np-row'),
+		$cards = $('.np-card'),
+		$empty = $('.np-empty');
+
+	$('#np-search').on('input', function () {
+		var q = $.trim(this.value).toLowerCase();
+		if (!q) {
+			$rows.add($cards).add($panels).css('display', '');
+			$empty.prop('hidden', true);
+			$('.np-nav a.is-active').trigger('click');
+			return;
+		}
+		$panels.removeAttr('hidden');
+		$rows.each(function () {
+			$(this).css('display', this.getAttribute('data-search').indexOf(q) > -1 ? '' : 'none');
+		});
+		$cards.each(function () {
+			$(this).css('display', $(this).find('.np-row').filter(function () { return this.style.display !== 'none'; }).length ? '' : 'none');
+		});
+		var any = false;
+		$panels.each(function () {
+			var has = $(this).find('.np-card').filter(function () { return this.style.display !== 'none'; }).length > 0;
+			$(this).css('display', has ? '' : 'none');
+			any = any || has;
+		});
+		$empty.prop('hidden', any);
+	});
+
+	var dirty = false;
+	$form.on('input change', 'input, select, textarea', function () {
+		if (!dirty && this.id !== 'np-search') {
+			dirty = true;
+			$('.np-dirty').prop('hidden', false);
+		}
+	});
+	$form.on('submit', function () { dirty = false; });
+	$(window).on('beforeunload', function () { if (dirty) { return ''; } });
 })(jQuery);

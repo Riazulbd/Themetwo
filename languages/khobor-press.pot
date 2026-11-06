@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Khobor Press 1.2.0\n"
+"Project-Id-Version: Khobor Press 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-07 01:03+0600\n"
+"POT-Creation-Date: 2026-11-07 01:08+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,7 +116,8 @@ msgstr ""
 msgid "All categories"
 msgstr ""
 
-#: inc/admin-panel.php:33 inc/admin-panel.php:34 inc/admin-panel.php:191
+#: inc/admin-panel.php:33 inc/admin-panel.php:34 inc/admin-panel.php:225
+#: inc/admin-panel.php:237
 msgid "Theme Panel"
 msgstr ""
 
@@ -162,20 +163,40 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: inc/admin-panel.php:184
+#: inc/admin-panel.php:209
 msgid "You do not have permission to change theme options."
 msgstr ""
 
-#: inc/admin-panel.php:198
-msgid "Theme Panel sections"
+#: inc/admin-panel.php:243
+msgid "Search settings…"
 msgstr ""
 
-#: inc/admin-panel.php:237
+#: inc/admin-panel.php:243
+msgid "Search settings"
+msgstr ""
+
+#: inc/admin-panel.php:246
+msgid "Unsaved changes"
+msgstr ""
+
+#: inc/admin-panel.php:247
+msgid "View site"
+msgstr ""
+
+#: inc/admin-panel.php:248 inc/admin-panel.php:296
 msgid "Save changes"
 msgstr ""
 
-#: inc/admin-panel.php:238
-msgid "Reset to defaults"
+#: inc/admin-panel.php:253
+msgid "Theme Panel sections"
+msgstr ""
+
+#: inc/admin-panel.php:293
+msgid "No settings match your search."
+msgstr ""
+
+#: inc/admin-panel.php:297
+msgid "Reset all to defaults"
 msgstr ""
 
 #: inc/bangla.php:175

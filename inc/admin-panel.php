@@ -99,7 +99,7 @@ function np_category_choices( $f ) {
 }
 
 /**
- * Print one field's input.
+ * Print one field's control (the label and help text are printed by the row around it).
  *
  * @param string $key   Option key.
  * @param array  $f     Field definition.
@@ -112,12 +112,12 @@ function np_panel_field( $key, $f, $value ) {
 
 	switch ( $f['type'] ) {
 		case 'textarea':
-			printf( '<textarea id="%s" name="%s" rows="3" class="large-text"%s>%s</textarea>', esc_attr( $id ), esc_attr( $name ), $ph, esc_textarea( $value ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- $ph is escaped above.
+			printf( '<textarea id="%s" name="%s" rows="3" class="np-input"%s>%s</textarea>', esc_attr( $id ), esc_attr( $name ), $ph, esc_textarea( $value ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- $ph is escaped above.
 			break;
 
 		case 'checkbox':
 			printf(
-				'<label for="%1$s"><input type="checkbox" id="%1$s" name="%2$s" value="1"%3$s> %4$s</label>',
+				'<label class="np-switch" for="%1$s"><input type="checkbox" id="%1$s" name="%2$s" value="1"%3$s><span class="np-switch-ui" aria-hidden="true"></span><span class="np-switch-text">%4$s</span></label>',
 				esc_attr( $id ),
 				esc_attr( $name ),
 				checked( $value, '1', false ),
@@ -128,7 +128,7 @@ function np_panel_field( $key, $f, $value ) {
 		case 'select':
 		case 'category':
 			$choices = 'category' === $f['type'] ? np_category_choices( $f ) : $f['choices'];
-			printf( '<select id="%s" name="%s">', esc_attr( $id ), esc_attr( $name ) );
+			printf( '<select id="%s" name="%s" class="np-input">', esc_attr( $id ), esc_attr( $name ) );
 			foreach ( $choices as $v => $label ) {
 				printf( '<option value="%s"%s>%s</option>', esc_attr( $v ), selected( (string) $v, $value, false ), esc_html( $label ) );
 			}
@@ -163,19 +163,44 @@ function np_panel_field( $key, $f, $value ) {
 				$attr .= isset( $f['max'] ) ? ' max="' . (int) $f['max'] . '"' : '';
 			}
 			printf(
-				'<input type="%s" id="%s" name="%s" value="%s" class="%s"%s%s>',
+				'<input type="%s" id="%s" name="%s" value="%s" class="np-input%s"%s%s>',
 				esc_attr( $type ),
 				esc_attr( $id ),
 				esc_attr( $name ),
 				esc_attr( $value ),
-				'number' === $type ? 'small-text' : 'regular-text',
+				'number' === $type ? ' np-input--short' : '',
 				$ph, // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above.
 				$attr // phpcs:ignore WordPress.Security.EscapeOutput -- integers only.
 			);
 	}
-	if ( ! empty( $f['desc'] ) ) {
-		echo '<p class="description">' . esc_html( $f['desc'] ) . '</p>';
+}
+
+/**
+ * Split a tab's flat field list into cards: every heading starts a new card.
+ *
+ * @param array $fields Tab fields.
+ * @return array<int,array{title:string,desc:string,fields:array}>
+ */
+function np_panel_cards( $fields ) {
+	$cards = array();
+	$cur   = null;
+	foreach ( $fields as $key => $f ) {
+		if ( 'heading' === $f['type'] ) {
+			if ( $cur ) {
+				$cards[] = $cur;
+			}
+			$cur = array( 'title' => $f['label'], 'desc' => isset( $f['desc'] ) ? $f['desc'] : '', 'fields' => array() );
+			continue;
+		}
+		if ( ! $cur ) {
+			$cur = array( 'title' => '', 'desc' => '', 'fields' => array() );
+		}
+		$cur['fields'][ $key ] = $f;
 	}
+	if ( $cur ) {
+		$cards[] = $cur;
+	}
+	return $cards;
 }
 
 /** Print the Theme Panel screen. */
@@ -186,57 +211,93 @@ function np_panel_render() {
 	$tabs   = np_panel_tabs();
 	$values = np_options();
 	$theme  = wp_get_theme();
+	$icons  = array(
+		'general' => 'dashicons-admin-settings',
+		'colours' => 'dashicons-art',
+		'footer'  => 'dashicons-id-alt',
+		'social'  => 'dashicons-share',
+		'home'    => 'dashicons-admin-home',
+		'engage'  => 'dashicons-megaphone',
+		'login'   => 'dashicons-lock',
+	);
 	?>
-	<div class="wrap np-panel">
-		<h1><?php esc_html_e( 'Theme Panel', 'khobor-press' ); ?> <span class="np-ver"><?php echo esc_html( $theme->get( 'Name' ) . ' ' . $theme->get( 'Version' ) ); ?></span></h1>
+	<div class="wrap np-wrap">
+		<h1 class="screen-reader-text"><?php esc_html_e( 'Theme Panel', 'khobor-press' ); ?></h1>
+		<hr class="wp-header-end">
 		<?php settings_errors(); ?>
 
-		<form method="post" action="options.php" id="np-panel-form">
+		<form method="post" action="options.php" id="np-panel-form" class="np-app">
 			<?php settings_fields( 'np_options_group' ); ?>
 			<input type="hidden" name="np_options[_form]" value="1">
 
-			<nav class="nav-tab-wrapper np-tabs" aria-label="<?php esc_attr_e( 'Theme Panel sections', 'khobor-press' ); ?>">
-				<?php foreach ( $tabs as $id => $tab ) : ?>
-					<a class="nav-tab" href="#np-tab-<?php echo esc_attr( $id ); ?>"><?php echo esc_html( $tab['label'] ); ?></a>
-				<?php endforeach; ?>
-			</nav>
+			<header class="np-top">
+				<div class="np-brand">
+					<span class="np-brand-icon dashicons dashicons-layout" aria-hidden="true"></span>
+					<div>
+						<strong class="np-brand-name"><?php esc_html_e( 'Theme Panel', 'khobor-press' ); ?></strong>
+						<span class="np-brand-sub"><?php echo esc_html( $theme->get( 'Name' ) . ' ' . $theme->get( 'Version' ) ); ?></span>
+					</div>
+				</div>
+				<div class="np-search">
+					<span class="dashicons dashicons-search" aria-hidden="true"></span>
+					<input type="search" id="np-search" placeholder="<?php esc_attr_e( 'Search settings…', 'khobor-press' ); ?>" aria-label="<?php esc_attr_e( 'Search settings', 'khobor-press' ); ?>">
+				</div>
+				<div class="np-actions">
+					<span class="np-dirty" hidden><?php esc_html_e( 'Unsaved changes', 'khobor-press' ); ?></span>
+					<a class="button np-view" href="<?php echo esc_url( home_url( '/' ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View site', 'khobor-press' ); ?></a>
+					<?php submit_button( __( 'Save changes', 'khobor-press' ), 'primary', 'submit', false ); ?>
+				</div>
+			</header>
 
-			<?php foreach ( $tabs as $id => $tab ) : ?>
-				<section class="np-tab" id="np-tab-<?php echo esc_attr( $id ); ?>">
-					<?php
-					$open = false;
-					foreach ( $tab['fields'] as $key => $f ) {
-						if ( 'heading' === $f['type'] ) {
-							if ( $open ) {
-								echo '</tbody></table>';
-								$open = false;
-							}
-							echo '<h2>' . esc_html( $f['label'] ) . '</h2>';
-							if ( ! empty( $f['desc'] ) ) {
-								echo '<p class="np-lead">' . esc_html( $f['desc'] ) . '</p>';
-							}
-							continue;
-						}
-						if ( ! $open ) {
-							echo '<table class="form-table" role="presentation"><tbody>';
-							$open = true;
-						}
-						$value = isset( $values[ $key ] ) ? (string) $values[ $key ] : '';
-						echo '<tr><th scope="row"><label for="np-' . esc_attr( $key ) . '">' . esc_html( $f['label'] ) . '</label></th><td>';
-						np_panel_field( $key, $f, $value );
-						echo '</td></tr>';
-					}
-					if ( $open ) {
-						echo '</tbody></table>';
-					}
-					?>
-				</section>
-			<?php endforeach; ?>
+			<div class="np-body">
+				<nav class="np-nav" aria-label="<?php esc_attr_e( 'Theme Panel sections', 'khobor-press' ); ?>">
+					<?php foreach ( $tabs as $id => $tab ) : ?>
+						<a href="#np-tab-<?php echo esc_attr( $id ); ?>"><span class="dashicons <?php echo esc_attr( isset( $icons[ $id ] ) ? $icons[ $id ] : 'dashicons-admin-generic' ); ?>" aria-hidden="true"></span><span><?php echo esc_html( $tab['label'] ); ?></span></a>
+					<?php endforeach; ?>
+				</nav>
 
-			<p class="submit np-submit">
-				<?php submit_button( __( 'Save changes', 'khobor-press' ), 'primary', 'submit', false ); ?>
-				<?php submit_button( __( 'Reset to defaults', 'khobor-press' ), 'delete', 'np_reset', false ); ?>
-			</p>
+				<div class="np-main">
+					<?php foreach ( $tabs as $id => $tab ) : ?>
+						<section class="np-tab" id="np-tab-<?php echo esc_attr( $id ); ?>">
+							<h2 class="np-tab-title"><?php echo esc_html( $tab['label'] ); ?></h2>
+							<?php foreach ( np_panel_cards( $tab['fields'] ) as $card ) : ?>
+								<?php
+								$all_colours = $card['fields'] && count( $card['fields'] ) === count( wp_list_filter( $card['fields'], array( 'type' => 'color' ) ) );
+								?>
+								<div class="np-card">
+									<?php if ( $card['title'] ) : ?>
+										<div class="np-card-head">
+											<h3><?php echo esc_html( $card['title'] ); ?></h3>
+											<?php if ( $card['desc'] ) : ?><p><?php echo esc_html( $card['desc'] ); ?></p><?php endif; ?>
+										</div>
+									<?php endif; ?>
+									<div class="np-rows<?php echo $all_colours ? ' np-rows--grid' : ''; ?>">
+										<?php
+										foreach ( $card['fields'] as $key => $f ) :
+											$value  = isset( $values[ $key ] ) ? (string) $values[ $key ] : '';
+											$search = strtolower( $card['title'] . ' ' . $f['label'] . ' ' . ( isset( $f['desc'] ) ? $f['desc'] : '' ) . ' ' . ( isset( $f['text'] ) ? $f['text'] : '' ) );
+											?>
+											<div class="np-row" data-search="<?php echo esc_attr( $search ); ?>">
+												<div class="np-row-label">
+													<label for="np-<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $f['label'] ); ?></label>
+													<?php if ( ! empty( $f['desc'] ) ) : ?><p class="description"><?php echo esc_html( $f['desc'] ); ?></p><?php endif; ?>
+												</div>
+												<div class="np-row-control"><?php np_panel_field( $key, $f, $value ); ?></div>
+											</div>
+										<?php endforeach; ?>
+									</div>
+								</div>
+							<?php endforeach; ?>
+						</section>
+					<?php endforeach; ?>
+					<p class="np-empty" hidden><?php esc_html_e( 'No settings match your search.', 'khobor-press' ); ?></p>
+
+					<div class="np-foot">
+						<?php submit_button( __( 'Save changes', 'khobor-press' ), 'primary', 'submit_bottom', false ); ?>
+						<?php submit_button( __( 'Reset all to defaults', 'khobor-press' ), 'link-delete', 'np_reset', false ); ?>
+					</div>
+				</div>
+			</div>
 		</form>
 	</div>
 	<?php
