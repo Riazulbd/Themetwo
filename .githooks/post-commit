@@ -1,3 +1,0 @@
-#!/bin/sh
-# Rebuild the upload zip after every commit.
-sh "$(git rev-parse --show-toplevel)/bin/build-zip.sh"
