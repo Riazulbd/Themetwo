@@ -231,6 +231,15 @@ function np_panel_tabs() {
 		);
 	}
 
+	/* Login page. */
+	$login = array(
+		'h_login'       => array( 'type' => 'heading', 'label' => __( 'Login page', 'khobor-press' ), 'desc' => __( 'Styles the WordPress login screen (yoursite.com/wp-login.php) to match your site.', 'khobor-press' ) ),
+		'login_custom'  => array( 'type' => 'checkbox', 'label' => __( 'Custom login page', 'khobor-press' ), 'text' => __( 'Use the branded login page', 'khobor-press' ), 'default' => '1' ),
+		'login_logo'    => array( 'type' => 'image', 'label' => __( 'Login logo', 'khobor-press' ), 'default' => '', 'desc' => __( 'Shown on a coloured background, so use a light logo. Blank = the footer logo, then the header logo, then the site name.', 'khobor-press' ) ),
+		'login_bg'      => array( 'type' => 'color', 'label' => __( 'Background colour', 'khobor-press' ), 'default' => '', 'blank' => true, 'desc' => __( 'Blank = the dark colour from the Colours tab. The button uses your accent colour.', 'khobor-press' ) ),
+		'login_message' => array( 'type' => 'text', 'label' => __( 'Welcome line', 'khobor-press' ), 'default' => '', 'desc' => __( 'Optional short text above the form.', 'khobor-press' ) ),
+	);
+
 	/* Sharing, newsletter & ads. */
 	$engage = array(
 		'h_fb'              => array( 'type' => 'heading', 'label' => __( 'Facebook Page box', 'khobor-press' ), 'desc' => __( 'Shown in the sidebar after the "Most read" card on posts and archives. It is a lazy-loaded iframe, so nothing from Facebook loads until the reader scrolls near it.', 'khobor-press' ) ),
@@ -254,6 +263,7 @@ function np_panel_tabs() {
 		'social'  => array( 'label' => __( 'Social', 'khobor-press' ), 'fields' => $social ),
 		'home'    => array( 'label' => __( 'Home page', 'khobor-press' ), 'fields' => $home ),
 		'engage'  => array( 'label' => __( 'Sharing & ads', 'khobor-press' ), 'fields' => $engage ),
+		'login'   => array( 'label' => __( 'Login page', 'khobor-press' ), 'fields' => $login ),
 	) );
 }
 

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Khobor Press 1.1.1\n"
+"Project-Id-Version: Khobor Press 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-03 15:25+0600\n"
+"POT-Creation-Date: 2026-11-07 01:03+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -504,7 +504,7 @@ msgstr ""
 msgid "Newsroom"
 msgstr ""
 
-#: inc/options.php:180 inc/options.php:246
+#: inc/options.php:180 inc/options.php:255
 msgid "Advertising"
 msgstr ""
 
@@ -607,125 +607,171 @@ msgstr ""
 msgid "Blank = category name"
 msgstr ""
 
-#: inc/options.php:236
-msgid "Facebook Page box"
+#: inc/options.php:236 inc/options.php:266
+msgid "Login page"
 msgstr ""
 
 #: inc/options.php:236
+msgid ""
+"Styles the WordPress login screen (yoursite.com/wp-login.php) to match your "
+"site."
+msgstr ""
+
+#: inc/options.php:237
+msgid "Custom login page"
+msgstr ""
+
+#: inc/options.php:237
+msgid "Use the branded login page"
+msgstr ""
+
+#: inc/options.php:238
+msgid "Login logo"
+msgstr ""
+
+#: inc/options.php:238
+msgid ""
+"Shown on a coloured background, so use a light logo. Blank = the footer "
+"logo, then the header logo, then the site name."
+msgstr ""
+
+#: inc/options.php:239
+msgid "Background colour"
+msgstr ""
+
+#: inc/options.php:239
+msgid ""
+"Blank = the dark colour from the Colours tab. The button uses your accent "
+"colour."
+msgstr ""
+
+#: inc/options.php:240
+msgid "Welcome line"
+msgstr ""
+
+#: inc/options.php:240
+msgid "Optional short text above the form."
+msgstr ""
+
+#: inc/options.php:245
+msgid "Facebook Page box"
+msgstr ""
+
+#: inc/options.php:245
 msgid ""
 "Shown in the sidebar after the \"Most read\" card on posts and archives. It "
 "is a lazy-loaded iframe, so nothing from Facebook loads until the reader "
 "scrolls near it."
 msgstr ""
 
-#: inc/options.php:237
+#: inc/options.php:246
 msgid "Facebook Page URL"
 msgstr ""
 
-#: inc/options.php:237
+#: inc/options.php:246
 msgid "Blank hides the box."
 msgstr ""
 
-#: inc/options.php:238
+#: inc/options.php:247
 msgid "Box title"
 msgstr ""
 
-#: inc/options.php:238
+#: inc/options.php:247
 msgid "Follow us on Facebook"
 msgstr ""
 
-#: inc/options.php:239
+#: inc/options.php:248
 msgid "Sharing & newsletter"
 msgstr ""
 
-#: inc/options.php:240
+#: inc/options.php:249
 msgid "Facebook App ID"
 msgstr ""
 
-#: inc/options.php:240
+#: inc/options.php:249
 msgid "Optional. Enables the Messenger share button on desktop."
 msgstr ""
 
-#: inc/options.php:241
+#: inc/options.php:250
 msgid "Newsletter form action URL"
 msgstr ""
 
-#: inc/options.php:241
+#: inc/options.php:250
 msgid ""
 "The form posts an \"EMAIL\" field to this address (Mailchimp, MailerLite and "
 "similar). Blank hides the form."
 msgstr ""
 
-#: inc/options.php:242
+#: inc/options.php:251
 msgid "Speed & caching"
 msgstr ""
 
-#: inc/options.php:243
+#: inc/options.php:252
 msgid "Edge cache time (seconds)"
 msgstr ""
 
-#: inc/options.php:243
+#: inc/options.php:252
 msgid ""
 "Tells Cloudflare (and other CDNs set to cache HTML) how long it may keep a "
 "page for logged-out visitors. 0 turns it off. Logged-in users, previews, "
 "search and 404 pages are never cached."
 msgstr ""
 
-#: inc/options.php:244
+#: inc/options.php:253
 msgid "View counter"
 msgstr ""
 
-#: inc/options.php:244
+#: inc/options.php:253
 msgid "Count article views (feeds the \"Most read\" card)"
 msgstr ""
 
-#: inc/options.php:245
+#: inc/options.php:254
 msgid "Count 1 in every N views"
 msgstr ""
 
-#: inc/options.php:245
+#: inc/options.php:254
 msgid ""
 "1 counts every view. On a very busy site, 5 or 10 cuts the server work by "
 "that factor while keeping the totals accurate on average."
 msgstr ""
 
-#: inc/options.php:246
+#: inc/options.php:255
 msgid "Ad slots are widget areas: Appearance → Widgets."
 msgstr ""
 
-#: inc/options.php:247
+#: inc/options.php:256
 msgid "Reserved space"
 msgstr ""
 
-#: inc/options.php:247
+#: inc/options.php:256
 msgid "Show a reserved ad box when an ad widget area is empty"
 msgstr ""
 
-#: inc/options.php:251
+#: inc/options.php:260
 msgid "General"
 msgstr ""
 
-#: inc/options.php:252
+#: inc/options.php:261
 msgid "Colours"
 msgstr ""
 
-#: inc/options.php:253
+#: inc/options.php:262
 msgid "Footer & contact"
 msgstr ""
 
-#: inc/options.php:254
+#: inc/options.php:263
 msgid "Social"
 msgstr ""
 
-#: inc/options.php:255
+#: inc/options.php:264
 msgid "Home page"
 msgstr ""
 
-#: inc/options.php:256
+#: inc/options.php:265
 msgid "Sharing & ads"
 msgstr ""
 
-#: inc/options.php:662
+#: inc/options.php:672
 msgid "Theme options were reset to their defaults."
 msgstr ""
 

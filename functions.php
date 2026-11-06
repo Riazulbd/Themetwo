@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'NP_VERSION', '1.1.1' );
+define( 'NP_VERSION', '1.2.0' );
 define( 'NP_DIR', get_template_directory() );
 define( 'NP_URI', get_template_directory_uri() );
 
@@ -25,6 +25,7 @@ $np_includes = array(
 	'views',           // Cache-friendly view counter for "most read".
 	'color-mode',      // Light/dark mode by time of day, with a visitor switch.
 	'performance',     // Inline CSS, font preload, deferred JS, head cleanup.
+	'login',           // Branded wp-login.php screen.
 	'seo',             // NewsArticle / BreadcrumbList JSON-LD and Open Graph.
 );
 

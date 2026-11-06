@@ -23,6 +23,7 @@ A top-level admin screen (capability `edit_theme_options`) with one tab per grou
 | Footer & contact | Footer description, copyright holder (blank = site name), editor label and name, published-from line, office address, and three contact blocks (heading, phone, email each). |
 | Social | Facebook, YouTube, WhatsApp, X, Instagram, TikTok, Google News: each has a Show switch and a link. |
 | Home page | Scrolling breaking ticker (on/off, label, headline count, tag). For Latest, Top stories, the featured section, columns 1–3 and the video band: pick a category and a title. Sections left on **Automatic** pick busy categories by themselves, so a fresh install needs no mapping. |
+| Login page | Branded `wp-login.php`: logo, background colour (button uses the accent colour), optional welcome line, on/off. |
 | Sharing & ads | Facebook Page box (URL, title), Facebook App ID, newsletter form action URL, edge cache time, reserved ad boxes. |
 
 "Reset to defaults" is at the bottom of the panel.
