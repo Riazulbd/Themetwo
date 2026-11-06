@@ -260,6 +260,19 @@ function np_panel_tabs() {
 		'login_message' => array( 'type' => 'text', 'label' => __( 'Welcome line', 'khobor-press' ), 'default' => '', 'desc' => __( 'Optional short text above the form.', 'khobor-press' ) ),
 	);
 
+	/* Photo card. */
+	$cards = array(
+		'h_card'           => array( 'type' => 'heading', 'label' => __( 'Photo cards', 'khobor-press' ), 'desc' => __( 'Adds "Download photo card" and "Share photo card" buttons to every article. The card (photo, headline, date, logo) is drawn in the reader\'s browser, so nothing is stored on your server and pages stay cacheable.', 'khobor-press' ) ),
+		'card_on'          => array( 'type' => 'checkbox', 'label' => __( 'Photo cards', 'khobor-press' ), 'text' => __( 'Show the photo card buttons on articles', 'khobor-press' ), 'default' => '1' ),
+		'card_style'       => array( 'type' => 'select', 'label' => __( 'Layout', 'khobor-press' ), 'default' => 'card', 'choices' => np_photocard_styles() ),
+		'card_logo'        => array( 'type' => 'image', 'label' => __( 'Card logo', 'khobor-press' ), 'default' => '', 'desc' => __( 'Blank = the header logo, then the Site Identity logo. Cards are light by default, so use a logo that suits a light background.', 'khobor-press' ) ),
+		'card_bottom_line' => array( 'type' => 'text', 'label' => __( 'Bottom line', 'khobor-press' ), 'default' => __( 'Details in the comments', 'khobor-press' ), 'desc' => __( 'Short call to action printed on the card.', 'khobor-press' ) ),
+		'h_card_colours'   => array( 'type' => 'heading', 'label' => __( 'Card colours', 'khobor-press' ), 'desc' => __( 'Blank = white background, dark text and your accent colour. The Dark, Light and Colour band layouts set some of these themselves.', 'khobor-press' ) ),
+		'card_bg'          => array( 'type' => 'color', 'label' => __( 'Background', 'khobor-press' ), 'default' => '', 'blank' => true ),
+		'card_text'        => array( 'type' => 'color', 'label' => __( 'Text', 'khobor-press' ), 'default' => '', 'blank' => true ),
+		'card_accent'      => array( 'type' => 'color', 'label' => __( 'Accent', 'khobor-press' ), 'default' => '', 'blank' => true ),
+	);
+
 	/* Sharing, newsletter & ads. */
 	$engage = array(
 		'h_fb'              => array( 'type' => 'heading', 'label' => __( 'Facebook Page box', 'khobor-press' ), 'desc' => __( 'Shown in the sidebar after the "Most read" card on posts and archives. It is a lazy-loaded iframe, so nothing from Facebook loads until the reader scrolls near it.', 'khobor-press' ) ),
@@ -283,6 +296,7 @@ function np_panel_tabs() {
 		'social'  => array( 'label' => __( 'Social', 'khobor-press' ), 'fields' => $social ),
 		'home'    => array( 'label' => __( 'Home page', 'khobor-press' ), 'fields' => $home ),
 		'engage'  => array( 'label' => __( 'Sharing & ads', 'khobor-press' ), 'fields' => $engage ),
+		'card'    => array( 'label' => __( 'Photo card', 'khobor-press' ), 'fields' => $cards ),
 		'login'   => array( 'label' => __( 'Login page', 'khobor-press' ), 'fields' => $login ),
 	) );
 }

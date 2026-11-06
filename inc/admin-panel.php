@@ -218,6 +218,7 @@ function np_panel_render() {
 		'social'  => 'dashicons-share',
 		'home'    => 'dashicons-admin-home',
 		'engage'  => 'dashicons-megaphone',
+		'card'    => 'dashicons-format-image',
 		'login'   => 'dashicons-lock',
 	);
 	?>

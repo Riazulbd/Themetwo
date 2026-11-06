@@ -233,6 +233,27 @@ msgstr "দুঃখিত, কোনো খবর পাওয়া যায�
 msgid "Dark mode"
 msgstr "ডার্ক মোড"
 
+msgid "Download photo card"
+msgstr "ছবি ডাউনলোড"
+
+msgid "Share photo card"
+msgstr "ছবি শেয়ার"
+
+msgid "Making the photo card…"
+msgstr "ছবি তৈরি হচ্ছে…"
+
+msgid "The original photo could not be added, so the card was made without it."
+msgstr "মূল ছবিটি যোগ করা যায়নি, ছবি ছাড়াই তৈরি হয়েছে।"
+
+msgid "The photo card could not be made. Please try again."
+msgstr "ছবি তৈরি করা যায়নি। আবার চেষ্টা করুন।"
+
+msgid "Sharing did not work, so the card was downloaded instead."
+msgstr "শেয়ার করা যায়নি, ছবিটি ডাউনলোড করা হয়েছে।"
+
+msgid "Details in the comments"
+msgstr "বিস্তারিত কমেন্টে"
+
 msgid "%s result found"
 msgid_plural "%s results found"
 msgstr[0] "%s টি খবর পাওয়া গেছে"

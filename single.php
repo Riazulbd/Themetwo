@@ -43,6 +43,7 @@ while ( have_posts() ) :
 			<div class="post-meta">
 				<?php np_meta_line(); ?>
 				<?php np_share_row(); ?>
+				<?php np_photocard_buttons(); ?>
 			</div>
 
 			<div class="entry">
@@ -71,6 +72,7 @@ while ( have_posts() ) :
 			<div class="share-box">
 				<p class="share-box-title b"><?php esc_html_e( 'Enjoyed this story? Share it', 'khobor-press' ); ?></p>
 				<?php np_share_row(); ?>
+				<?php np_photocard_buttons(); ?>
 			</div>
 
 			<?php

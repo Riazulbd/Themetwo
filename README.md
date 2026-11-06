@@ -23,12 +23,17 @@ A top-level admin screen (capability `edit_theme_options`) with one tab per grou
 | Footer & contact | Footer description, copyright holder (blank = site name), editor label and name, published-from line, office address, and three contact blocks (heading, phone, email each). |
 | Social | Facebook, YouTube, WhatsApp, X, Instagram, TikTok, Google News: each has a Show switch and a link. |
 | Home page | Scrolling breaking ticker (on/off, label, headline count, tag). For Latest, Top stories, the featured section, columns 1–3 and the video band: pick a category and a title. Sections left on **Automatic** pick busy categories by themselves, so a fresh install needs no mapping. |
+| Photo card | Download / share buttons on every article that produce a branded picture (photo, headline, date, logo). Nine layouts, logo, colours, bottom line, on/off. |
 | Login page | Branded `wp-login.php`: logo, background colour (button uses the accent colour), optional welcome line, on/off. |
 | Sharing & ads | Facebook Page box (URL, title), Facebook App ID, newsletter form action URL, edge cache time, reserved ad boxes. |
 
 "Reset to defaults" is at the bottom of the panel.
 
 **Upgrading from an older version:** values saved in the Customizer are copied into the new option the first time an admin screen loads. The old values are left in place, so rolling back loses nothing. Defaults that used to point at a specific site (category slugs, emails, placeholder text) are gone; sections without a category chosen are simply hidden.
+
+## Photo cards
+
+Articles get "Download photo card" and "Share photo card" buttons (the share button appears on phones that can share files). The card is drawn in the reader's browser, so nothing is stored on the server and pages stay cacheable. The script and the font load on articles only, and nothing is downloaded or drawn until the reader reaches for a button. The photo must be served from your own domain, or from one that allows cross-origin use, or the card is made without the photo. Adapted from the Sokal Narayanganj theme.
 
 ## Light and dark mode
 

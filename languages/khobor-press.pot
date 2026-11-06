@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Khobor Press 1.2.2\n"
+"Project-Id-Version: Khobor Press 1.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-07 01:13+0600\n"
+"POT-Creation-Date: 2026-11-07 01:24+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Sub-categories"
 msgstr ""
 
-#: front-page.php:139 single.php:109
+#: front-page.php:139 single.php:111
 msgid "More →"
 msgstr ""
 
@@ -116,8 +116,8 @@ msgstr ""
 msgid "All categories"
 msgstr ""
 
-#: inc/admin-panel.php:33 inc/admin-panel.php:34 inc/admin-panel.php:225
-#: inc/admin-panel.php:237
+#: inc/admin-panel.php:33 inc/admin-panel.php:34 inc/admin-panel.php:226
+#: inc/admin-panel.php:238
 msgid "Theme Panel"
 msgstr ""
 
@@ -167,35 +167,35 @@ msgstr ""
 msgid "You do not have permission to change theme options."
 msgstr ""
 
-#: inc/admin-panel.php:243
+#: inc/admin-panel.php:244
 msgid "Search settings…"
 msgstr ""
 
-#: inc/admin-panel.php:243
+#: inc/admin-panel.php:244
 msgid "Search settings"
 msgstr ""
 
-#: inc/admin-panel.php:246
+#: inc/admin-panel.php:247
 msgid "Unsaved changes"
 msgstr ""
 
-#: inc/admin-panel.php:247
+#: inc/admin-panel.php:248
 msgid "View site"
 msgstr ""
 
-#: inc/admin-panel.php:248 inc/admin-panel.php:296
+#: inc/admin-panel.php:249 inc/admin-panel.php:297
 msgid "Save changes"
 msgstr ""
 
-#: inc/admin-panel.php:253
+#: inc/admin-panel.php:254
 msgid "Theme Panel sections"
 msgstr ""
 
-#: inc/admin-panel.php:293
+#: inc/admin-panel.php:294
 msgid "No settings match your search."
 msgstr ""
 
-#: inc/admin-panel.php:297
+#: inc/admin-panel.php:298
 msgid "Reset all to defaults"
 msgstr ""
 
@@ -533,7 +533,7 @@ msgstr ""
 msgid "Newsroom"
 msgstr ""
 
-#: inc/options.php:200 inc/options.php:275
+#: inc/options.php:200 inc/options.php:288
 msgid "Advertising"
 msgstr ""
 
@@ -636,7 +636,7 @@ msgstr ""
 msgid "Blank = category name"
 msgstr ""
 
-#: inc/options.php:256 inc/options.php:286
+#: inc/options.php:256 inc/options.php:300
 msgid "Login page"
 msgstr ""
 
@@ -682,125 +682,192 @@ msgstr ""
 msgid "Optional short text above the form."
 msgstr ""
 
-#: inc/options.php:265
-msgid "Facebook Page box"
+#: inc/options.php:265 inc/options.php:266
+msgid "Photo cards"
 msgstr ""
 
 #: inc/options.php:265
+msgid ""
+"Adds \"Download photo card\" and \"Share photo card\" buttons to every "
+"article. The card (photo, headline, date, logo) is drawn in the reader's "
+"browser, so nothing is stored on your server and pages stay cacheable."
+msgstr ""
+
+#: inc/options.php:266
+msgid "Show the photo card buttons on articles"
+msgstr ""
+
+#: inc/options.php:267
+msgid "Layout"
+msgstr ""
+
+#: inc/options.php:268
+msgid "Card logo"
+msgstr ""
+
+#: inc/options.php:268
+msgid ""
+"Blank = the header logo, then the Site Identity logo. Cards are light by "
+"default, so use a logo that suits a light background."
+msgstr ""
+
+#: inc/options.php:269
+msgid "Bottom line"
+msgstr ""
+
+#: inc/options.php:269
+msgid "Details in the comments"
+msgstr ""
+
+#: inc/options.php:269
+msgid "Short call to action printed on the card."
+msgstr ""
+
+#: inc/options.php:270
+msgid "Card colours"
+msgstr ""
+
+#: inc/options.php:270
+msgid ""
+"Blank = white background, dark text and your accent colour. The Dark, Light "
+"and Colour band layouts set some of these themselves."
+msgstr ""
+
+#: inc/options.php:271
+msgid "Background"
+msgstr ""
+
+#: inc/options.php:272
+msgid "Text"
+msgstr ""
+
+#: inc/options.php:273
+msgid "Accent"
+msgstr ""
+
+#: inc/options.php:278
+msgid "Facebook Page box"
+msgstr ""
+
+#: inc/options.php:278
 msgid ""
 "Shown in the sidebar after the \"Most read\" card on posts and archives. It "
 "is a lazy-loaded iframe, so nothing from Facebook loads until the reader "
 "scrolls near it."
 msgstr ""
 
-#: inc/options.php:266
+#: inc/options.php:279
 msgid "Facebook Page URL"
 msgstr ""
 
-#: inc/options.php:266
+#: inc/options.php:279
 msgid "Blank hides the box."
 msgstr ""
 
-#: inc/options.php:267
+#: inc/options.php:280
 msgid "Box title"
 msgstr ""
 
-#: inc/options.php:267
+#: inc/options.php:280
 msgid "Follow us on Facebook"
 msgstr ""
 
-#: inc/options.php:268
+#: inc/options.php:281
 msgid "Sharing & newsletter"
 msgstr ""
 
-#: inc/options.php:269
+#: inc/options.php:282
 msgid "Facebook App ID"
 msgstr ""
 
-#: inc/options.php:269
+#: inc/options.php:282
 msgid "Optional. Enables the Messenger share button on desktop."
 msgstr ""
 
-#: inc/options.php:270
+#: inc/options.php:283
 msgid "Newsletter form action URL"
 msgstr ""
 
-#: inc/options.php:270
+#: inc/options.php:283
 msgid ""
 "The form posts an \"EMAIL\" field to this address (Mailchimp, MailerLite and "
 "similar). Blank hides the form."
 msgstr ""
 
-#: inc/options.php:271
+#: inc/options.php:284
 msgid "Speed & caching"
 msgstr ""
 
-#: inc/options.php:272
+#: inc/options.php:285
 msgid "Edge cache time (seconds)"
 msgstr ""
 
-#: inc/options.php:272
+#: inc/options.php:285
 msgid ""
 "Tells Cloudflare (and other CDNs set to cache HTML) how long it may keep a "
 "page for logged-out visitors. 0 turns it off. Logged-in users, previews, "
 "search and 404 pages are never cached."
 msgstr ""
 
-#: inc/options.php:273
+#: inc/options.php:286
 msgid "View counter"
 msgstr ""
 
-#: inc/options.php:273
+#: inc/options.php:286
 msgid "Count article views (feeds the \"Most read\" card)"
 msgstr ""
 
-#: inc/options.php:274
+#: inc/options.php:287
 msgid "Count 1 in every N views"
 msgstr ""
 
-#: inc/options.php:274
+#: inc/options.php:287
 msgid ""
 "1 counts every view. On a very busy site, 5 or 10 cuts the server work by "
 "that factor while keeping the totals accurate on average."
 msgstr ""
 
-#: inc/options.php:275
+#: inc/options.php:288
 msgid "Ad slots are widget areas: Appearance → Widgets."
 msgstr ""
 
-#: inc/options.php:276
+#: inc/options.php:289
 msgid "Reserved space"
 msgstr ""
 
-#: inc/options.php:276
+#: inc/options.php:289
 msgid "Show a reserved ad box when an ad widget area is empty"
 msgstr ""
 
-#: inc/options.php:280
+#: inc/options.php:293
 msgid "General"
 msgstr ""
 
-#: inc/options.php:281
+#: inc/options.php:294
 msgid "Colours"
 msgstr ""
 
-#: inc/options.php:282
+#: inc/options.php:295
 msgid "Footer & contact"
 msgstr ""
 
-#: inc/options.php:283
+#: inc/options.php:296
 msgid "Social"
 msgstr ""
 
-#: inc/options.php:284
+#: inc/options.php:297
 msgid "Home page"
 msgstr ""
 
-#: inc/options.php:285
+#: inc/options.php:298
 msgid "Sharing & ads"
 msgstr ""
 
-#: inc/options.php:735
+#: inc/options.php:299
+msgid "Photo card"
+msgstr ""
+
+#: inc/options.php:749
 msgid "Theme options were reset to their defaults."
 msgstr ""
 
@@ -810,6 +877,66 @@ msgstr ""
 
 #: inc/performance.php:208
 msgid "Copy failed"
+msgstr ""
+
+#: inc/photocard.php:23
+msgid "Framed photo, headline, date and link (square)"
+msgstr ""
+
+#: inc/photocard.php:24
+msgid "Photo with a headline panel (square)"
+msgstr ""
+
+#: inc/photocard.php:25
+msgid "Photo and logo strip (wide)"
+msgstr ""
+
+#: inc/photocard.php:26
+msgid "Photo with a slogan band (wide)"
+msgstr ""
+
+#: inc/photocard.php:27
+msgid "Classic (square)"
+msgstr ""
+
+#: inc/photocard.php:28
+msgid "Dark (square)"
+msgstr ""
+
+#: inc/photocard.php:29
+msgid "Light (square)"
+msgstr ""
+
+#: inc/photocard.php:30
+msgid "Colour band (square)"
+msgstr ""
+
+#: inc/photocard.php:31
+msgid "Wide strip"
+msgstr ""
+
+#: inc/photocard.php:53
+msgid "Making the photo card…"
+msgstr ""
+
+#: inc/photocard.php:54
+msgid "The original photo could not be added, so the card was made without it."
+msgstr ""
+
+#: inc/photocard.php:55
+msgid "The photo card could not be made. Please try again."
+msgstr ""
+
+#: inc/photocard.php:56
+msgid "Sharing did not work, so the card was downloaded instead."
+msgstr ""
+
+#: inc/photocard.php:137
+msgid "Download photo card"
+msgstr ""
+
+#: inc/photocard.php:142
+msgid "Share photo card"
 msgstr ""
 
 #: inc/setup.php:40
@@ -984,27 +1111,27 @@ msgstr ""
 msgid "Sidebar"
 msgstr ""
 
-#: single.php:62
+#: single.php:63
 msgid "Tags:"
 msgstr ""
 
-#: single.php:72
+#: single.php:73
 msgid "Enjoyed this story? Share it"
 msgstr ""
 
-#: single.php:81
+#: single.php:83
 msgid "Previous and next stories"
 msgstr ""
 
-#: single.php:83
+#: single.php:85
 msgid "Previous story"
 msgstr ""
 
-#: single.php:86
+#: single.php:88
 msgid "Next story"
 msgstr ""
 
-#: single.php:109
+#: single.php:111
 msgid "Related stories"
 msgstr ""
 
